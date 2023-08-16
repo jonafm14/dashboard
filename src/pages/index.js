@@ -1,0 +1,6 @@
+export * from './Welcome'
+export * from './UsersPage'
+export * from './DepartmentPage'
+export * from './ProvincePage'
+export * from './DistrictPage'
+export * from './ModulesPage'

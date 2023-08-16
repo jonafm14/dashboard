@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+  
+.ant-menu-dark.ant-menu-inline .ant-menu-item,
+.ant-menu-inline.ant-menu-root .ant-menu-submenu-title{
+    padding-left: 12px !important;
+}
+  
+
+  
