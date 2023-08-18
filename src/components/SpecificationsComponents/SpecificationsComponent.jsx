@@ -7,7 +7,7 @@ import { ColorComponent } from './Color/ColorComponent'
 
 export const SpecificationsComponent = () => {
   return (
-    <div>
+    <div className='px-10 w-full mx-auto'>
       <div className="flex justify-between space-x-10">
 
         <div className="w-1/3">

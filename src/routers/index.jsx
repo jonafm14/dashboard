@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { Welcome } from '../pages/Welcome'
 import { MainLayout } from '../components/layouts'
-import { DepartmentPage, DistrictPage, ProvincePage, UsersTable } from '../pages'
+import { DepartmentPage, DistrictPage, PaymentPage, ProvincePage, UsersTable } from '../pages'
 import { ModulesPage } from '../pages/ModulesPage'
 import { ChannelsPage } from '../pages/ChannelsPage'
 import { SpecificationsPage } from '../pages/SpecificationsPage'
@@ -73,6 +73,15 @@ export const Routers = () => {
             element={
             <MainLayout>
               <SpecificationsPage
+              />
+            </MainLayout>
+        }
+          />
+          <Route
+            path='/payments'
+            element={
+            <MainLayout>
+              <PaymentPage
               />
             </MainLayout>
         }

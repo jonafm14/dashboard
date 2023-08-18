@@ -19,7 +19,7 @@ export const ColorComponent = () => {
   return (
         <div className="flex justify-between items-center mb-5">
             <h2 className='text-lg'>Colores</h2>
-            <Button onClick={showModal}>Agregar Color</Button>
+            <Button type='default' onClick={showModal}>Agregar Color</Button>
 
             <Modal title="Agregar color"
                 open={isModalVisible}

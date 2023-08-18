@@ -71,7 +71,7 @@ export const ChannelsComponent = () => {
   }
 
   return (
-    <div>
+    <div className='px-10 w-full mx-auto'>
       <div className="flex justify-between items-center">
           <h1 className="text-lg">Canales</h1>
           <Button onClick={showModal}>Agregar canal</Button>

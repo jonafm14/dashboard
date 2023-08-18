@@ -65,27 +65,6 @@ export async function createProvince (name, codeDepartment) {
   }
 }
 
-export async function updateProvince (updateProvince) {
-  try {
-    const response = await fetch('https://masterdata-java17-production.up.railway.app/masterdata/province', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(updateProvince)
-    })
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`)
-    }
-
-    return response.json()
-  } catch (error) {
-    console.error('There was a problem updating the province:', error.message)
-    throw error
-  }
-}
-
 export async function deleteProvince (id) {
   const user = 'SYSTEM'
   try {
