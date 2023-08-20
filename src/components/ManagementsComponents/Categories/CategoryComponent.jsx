@@ -16,6 +16,11 @@ export const CategoryComponent = () => {
   const showModal = () => {
     setIsModalVisible(true)
   }
+
+  const handleCloseModal = () => {
+    setIsModalVisible(false)
+  }
+
   return (
         <div className="flex justify-between items-center mb-5">
             <h2 className='text-lg'>Categorias</h2>
@@ -26,7 +31,7 @@ export const CategoryComponent = () => {
                 onOk={handleOk}
                 onCancel={handleCancel}
                 footer={null}>
-                <RegisterCategory/>
+                <RegisterCategory closeForm={handleCloseModal}/>
             </Modal>
           </div>
   )

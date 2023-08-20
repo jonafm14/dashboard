@@ -46,17 +46,17 @@ export const MainLayout = (props) => {
       </Link>
     ),
     getItem(
-      'Especificaciones',
+      'Pagos',
       '8',
-      <Link to="/specifications">
-        <FileTextOutlined />
+      <Link to="/payments">
+        <DollarOutlined />
       </Link>
     ),
     getItem(
-      'Pagos',
+      'Gestion',
       '9',
-      <Link to="/payments">
-        <DollarOutlined />
+      <Link to="/managements">
+        <FileTextOutlined />
       </Link>
     )
   ]

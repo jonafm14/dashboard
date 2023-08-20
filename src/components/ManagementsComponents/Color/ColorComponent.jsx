@@ -16,6 +16,11 @@ export const ColorComponent = () => {
   const showModal = () => {
     setIsModalVisible(true)
   }
+
+  const handleCloseModal = () => {
+    setIsModalVisible(false)
+  }
+
   return (
         <div className="flex justify-between items-center mb-5">
             <h2 className='text-lg'>Colores</h2>
@@ -26,7 +31,7 @@ export const ColorComponent = () => {
                 onOk={handleOk}
                 onCancel={handleCancel}
                 footer={null}>
-                <RegisterColor/>
+                <RegisterColor closeForm={handleCloseModal}/>
             </Modal>
           </div>
   )

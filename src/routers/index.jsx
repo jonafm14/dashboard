@@ -1,10 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { Welcome } from '../pages/Welcome'
 import { MainLayout } from '../components/layouts'
-import { DepartmentPage, DistrictPage, PaymentPage, ProvincePage, UsersTable } from '../pages'
-import { ModulesPage } from '../pages/ModulesPage'
-import { ChannelsPage } from '../pages/ChannelsPage'
-import { SpecificationsPage } from '../pages/SpecificationsPage'
+import { DepartmentPage, DistrictPage, PaymentPage, ProvincePage, UsersTable, ModulesPage, ChannelsPage, ManagementsPage } from '../pages'
 
 export const Routers = () => {
   return (
@@ -69,10 +66,10 @@ export const Routers = () => {
         }
           />
           <Route
-            path='/specifications'
+            path='/managements'
             element={
             <MainLayout>
-              <SpecificationsPage
+              <ManagementsPage
               />
             </MainLayout>
         }
