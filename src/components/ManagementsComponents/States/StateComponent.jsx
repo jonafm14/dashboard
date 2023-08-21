@@ -23,7 +23,7 @@ export const StateComponent = () => {
 
   return (
         <div className="flex justify-between items-center mb-5">
-            <h2 className='text-lg'>Estados</h2>
+            <h2 className='text-lg'>Estados para modulos</h2>
             <Button onClick={showModal}>Agregar Estado</Button>
 
             <Modal title="Agregar estado"

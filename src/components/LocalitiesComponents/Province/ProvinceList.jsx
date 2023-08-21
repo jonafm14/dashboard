@@ -1,24 +1,40 @@
-import { Button, Table, Modal, Alert } from 'antd'
+import { Button, Table, Modal, Alert, notification } from 'antd'
 import { DeleteOutlined } from '@ant-design/icons'
 import { useState } from 'react'
 import { RegisterProvince } from './RegisterProvince'
-import { useMutation, useQuery } from 'react-query'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { deleteProvince, getProvinces } from '../../../services/provinceService'
 
 export const ProvinceList = () => {
   const [isModalVisible, setIsModalVisible] = useState(false)
+  const queryClient = useQueryClient()
 
   const { data, isLoading, isError } = useQuery('province', getProvinces)
 
   const deleteMutation = useMutation(deleteProvince)
+  const openNotification = (type, message) => {
+    notification[type]({
+      message,
+      placement: 'bottomRight',
+      duration: 2
+    })
+  }
 
   const handleCloseModal = () => {
     setIsModalVisible(false)
   }
 
   const handleDelete = (id) => {
-    console.log(id)
-    deleteMutation.mutate(id)
+    deleteMutation.mutate(id, {
+      onSuccess: () => {
+        openNotification('success', 'Provincia eliminada con éxito!')
+        queryClient.invalidateQueries('province')
+      },
+      onError: (error) => {
+        openNotification('error', 'Hubo un error al eliminar la provincia.')
+        console.error('Failed to delete category:', error)
+      }
+    })
   }
 
   const showModal = () => {

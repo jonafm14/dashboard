@@ -9,7 +9,7 @@ export const DepartmentList = () => {
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [pagination, setPagination] = useState({
     current: 1,
-    pageSize: 10,
+    pageSize: 5,
     total: 0,
     sortField: null,
     sortOrder: null

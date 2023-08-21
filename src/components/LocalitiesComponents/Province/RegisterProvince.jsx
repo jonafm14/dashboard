@@ -65,7 +65,7 @@ export const RegisterProvince = ({ closeForm }) => {
               className="w-full p-2 border rounded"
             >
               <option value="" disabled>Selecciona un departamento</option>
-              {departments && departments.map((dept) => (
+              {departments && departments.content.map((dept) => (
                 <option key={dept.code} value={dept.code}>
                   {dept.name}
                 </option>

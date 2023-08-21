@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { notification } from 'antd'
 import { useMutation, useQueryClient } from 'react-query'
-import { createPaymenMethod } from '../../../services/paymentMethodService'
+import { createPaymentMethod } from '../../../services/paymentMethodService'
 
 export const PaymentMethodRegister = ({ closeForm }) => {
   const [paymentMethodName, setPaymentMethodName] = useState('')
@@ -15,7 +15,7 @@ export const PaymentMethodRegister = ({ closeForm }) => {
     })
   }
 
-  const mutation = useMutation((newPaymentMethod) => createPaymenMethod(newPaymentMethod.name), {
+  const mutation = useMutation((newPaymentMethod) => createPaymentMethod(newPaymentMethod.name), {
     onSuccess: () => {
       setPaymentMethodName('')
       openNotification('success', 'Metodo de pago creado con éxito!')

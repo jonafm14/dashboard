@@ -1,13 +1,13 @@
 import { Alert, Button, Table, notification } from 'antd'
 import { DeleteOutlined } from '@ant-design/icons'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
-import { deletePaymenMethod, getPaymenMethod } from '../../../services/paymentMethodService'
+import { deletePaymentMethod, getPaymentMethod } from '../../../services/paymentMethodService'
 
 export const PaymentMethodList = () => {
   const queryClient = useQueryClient()
-  const { data, isLoading, isError } = useQuery('payment-method', getPaymenMethod)
+  const { data, isLoading, isError } = useQuery('payment-method', getPaymentMethod)
 
-  const deleteMutation = useMutation(deletePaymenMethod)
+  const deleteMutation = useMutation(deletePaymentMethod)
   const openNotification = (type, message) => {
     notification[type]({
       message,

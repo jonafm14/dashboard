@@ -1,24 +1,41 @@
-import { Button, Table, Modal, Alert } from 'antd'
+import { Button, Table, Modal, Alert, notification } from 'antd'
 import { DeleteOutlined } from '@ant-design/icons'
 import { useState } from 'react'
 import { RegisterDistrict } from './RegisterDistrict'
-import { useMutation, useQuery } from 'react-query'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { deleteDistrict, getDistricts } from '../../../services/districtService'
 
 export const DistrictsList = () => {
   const [isModalVisible, setIsModalVisible] = useState(false)
+  const queryClient = useQueryClient()
+
+  const openNotification = (type, message) => {
+    notification[type]({
+      message,
+      placement: 'bottomRight',
+      duration: 2
+    })
+  }
 
   const { data, isLoading, isError } = useQuery('district', getDistricts)
 
   const deleteMutation = useMutation(deleteDistrict)
 
-  const handleCloseModal = () => {
-    setIsModalVisible(false)
+  const handleDelete = (id) => {
+    deleteMutation.mutate(id, {
+      onSuccess: () => {
+        openNotification('success', 'Distrito eliminado con éxito!')
+        queryClient.invalidateQueries('district')
+      },
+      onError: (error) => {
+        openNotification('error', 'Hubo un error al eliminar el ditrito.')
+        console.error('Failed to delete district:', error)
+      }
+    })
   }
 
-  const handleDelete = (id) => {
-    console.log(id)
-    deleteMutation.mutate(id)
+  const handleCloseModal = () => {
+    setIsModalVisible(false)
   }
 
   const showModal = () => {
