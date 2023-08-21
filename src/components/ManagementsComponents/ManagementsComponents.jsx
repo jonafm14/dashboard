@@ -10,6 +10,8 @@ import { UserRoleComponent } from './Roles/USerRoleComponent'
 import { UserRoleList } from './Roles/UserRoleList'
 import { SaleChannelComponent } from './SalesChannels/SaleChannelComponent'
 import { SaleChannelList } from './SalesChannels/SaleChannelList'
+import { PaymentMethodComponent } from './PaymentMethodComponents/PaymentMethodComponents'
+import { PaymentMethodList } from './PaymentMethodComponents/PaymentMethodList'
 
 export const ManagementsComponents = () => {
   return (
@@ -29,7 +31,7 @@ export const ManagementsComponents = () => {
           <CategoryList/>
         </div>
       </div>
-      <div className="flex justify-between space-x-10">
+      <div className="flex justify-between space-x-10 mb-10 max-h-1/2">
         <div className="w-1/3">
           <StateComponent/>
           <StateList/>
@@ -42,6 +44,12 @@ export const ManagementsComponents = () => {
         <div className="w-1/3">
           <SaleChannelComponent/>
           <SaleChannelList/>
+        </div>
+      </div>
+      <div className="flex justify-between space-x-10">
+        <div className="w-1/3">
+          <PaymentMethodComponent/>
+          <PaymentMethodList/>
         </div>
       </div>
 

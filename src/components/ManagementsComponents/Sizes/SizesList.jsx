@@ -36,7 +36,9 @@ export const SizeList = () => {
       key: 'name'
     },
     {
-      title: '',
+      title: 'Eliminar',
+      width: '100px',
+      align: 'center',
       dataIndex: 'action',
       render: (text, record) => (
         <Button

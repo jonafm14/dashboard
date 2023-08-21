@@ -36,7 +36,9 @@ export const ColorList = () => {
       key: 'name'
     },
     {
-      title: '',
+      title: 'Eliminar',
+      width: '100px',
+      align: 'center',
       dataIndex: 'action',
       render: (text, record) => (
         <Button

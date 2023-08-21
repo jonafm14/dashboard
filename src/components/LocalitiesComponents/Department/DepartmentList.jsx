@@ -85,7 +85,9 @@ export const DepartmentList = () => {
       sorter: true
     },
     {
-      title: '',
+      title: 'Eliminar',
+      width: '100px',
+      align: 'center',
       dataIndex: 'action',
       render: (text, record) => (
         <Button

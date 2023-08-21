@@ -1,13 +1,13 @@
 import { Alert, Button, Table, notification } from 'antd'
 import { DeleteOutlined } from '@ant-design/icons'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
-import { deleteCategory, getCategories } from '../../../services/categoryService'
+import { deletePaymenMethod, getPaymenMethod } from '../../../services/paymentMethodService'
 
-export const CategoryList = () => {
+export const PaymentMethodList = () => {
   const queryClient = useQueryClient()
-  const { data, isLoading, isError } = useQuery('category', getCategories)
+  const { data, isLoading, isError } = useQuery('payment-method', getPaymenMethod)
 
-  const deleteMutation = useMutation(deleteCategory)
+  const deleteMutation = useMutation(deletePaymenMethod)
   const openNotification = (type, message) => {
     notification[type]({
       message,
@@ -19,26 +19,21 @@ export const CategoryList = () => {
   const handleDelete = (id) => {
     deleteMutation.mutate(id, {
       onSuccess: () => {
-        openNotification('success', 'Categoria eliminada con éxito!')
-        queryClient.invalidateQueries('category')
+        openNotification('success', 'Metodo de pago eliminada con éxito!')
+        queryClient.invalidateQueries('payment-method')
       },
       onError: (error) => {
-        openNotification('error', 'Hubo un error al eliminar la categoria.')
-        console.error('Failed to delete category:', error)
+        openNotification('error', 'Hubo un error al eliminar el metodo de pago.')
+        console.error('Failed to delete payment method:', error)
       }
     })
   }
 
-  const categoriesColumns = [
+  const paymentMethodColumns = [
     {
       title: 'Nombre',
       dataIndex: 'name',
       key: 'name'
-    },
-    {
-      title: 'Descripcion',
-      dataIndex: 'description',
-      key: 'description'
     },
     {
       title: 'Eliminar',
@@ -58,10 +53,10 @@ export const CategoryList = () => {
 
   return (
     <div>
-      {isLoading && <div>Cargando categorias...</div>}
-      {isError && <Alert message="Error cargando categorias" type="error" />}
+      {isLoading && <div>Cargando metodos de pago...</div>}
+      {isError && <Alert message="Error cargando metodos de pago" type="error" />}
       {data &&
-        <Table dataSource={data} columns={categoriesColumns} rowKey="id" pagination={false} />
+        <Table dataSource={data} columns={paymentMethodColumns} rowKey="id" pagination={false} />
       }
     </div>
   )
