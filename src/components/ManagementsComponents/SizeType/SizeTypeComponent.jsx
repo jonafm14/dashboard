@@ -1,9 +1,8 @@
 import { Button, Modal } from 'antd'
 import { useState } from 'react'
-import { RegisterProvince } from './RegisterProvince'
-import { ProvinceList } from './ProvinceList'
+import { RegisterSizeType } from './RegisterSizeType'
 
-export const ProvinceComponent = () => {
+export const SizeTypeComponent = () => {
   const [isModalVisible, setIsModalVisible] = useState(false)
 
   const handleOk = () => {
@@ -23,22 +22,17 @@ export const ProvinceComponent = () => {
   }
 
   return (
-    <div className='px-10 w-full mx-auto'>
         <div className="flex justify-between items-center mb-5">
-            <h2 className='text-lg'>Provincias</h2>
-              <Button onClick={showModal}>Agregar Provincia</Button>
-              <Modal title="Agregar provincia"
+            <h2 className='text-lg'>Tipos de tallas</h2>
+            <Button onClick={showModal}>Agregar Tipo de talla</Button>
+
+            <Modal title="Agregar talla"
                   open={isModalVisible}
                   onOk={handleOk}
                   onCancel={handleCancel}
                   footer={null}>
-                  <RegisterProvince closeForm={handleCloseModal}/>
-              </Modal>
-        </div>
-        <div>
-            <ProvinceList/>
-        </div>
-    </div>
-
+                  <RegisterSizeType closeForm={handleCloseModal}/>
+            </Modal>
+          </div>
   )
 }

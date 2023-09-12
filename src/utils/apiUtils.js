@@ -1,8 +1,13 @@
-export const BASE_URL = 'https://masterdata-java17-production.up.railway.app/masterdata'
+export const BASE_URL = 'http://localhost:8080/masterdata'
+const HEADERS = {
+  'Content-Type': 'application/json'
+}
 
 export async function fetchData (endpoint) {
   try {
-    const response = await fetch(`${BASE_URL}${endpoint}`)
+    const response = await fetch(`${BASE_URL}${endpoint}`, {
+      headers: HEADERS
+    })
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`)
     }
@@ -17,9 +22,7 @@ export async function postData (endpoint, data) {
   try {
     const response = await fetch(`${BASE_URL}${endpoint}`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: HEADERS,
       body: JSON.stringify(data)
     })
     if (!response.ok) {
@@ -35,7 +38,8 @@ export async function postData (endpoint, data) {
 export async function deleteData (endpoint) {
   try {
     const response = await fetch(`${BASE_URL}${endpoint}`, {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers: HEADERS
     })
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`)
@@ -51,9 +55,7 @@ export async function putData (endpoint, data) {
   try {
     const response = await fetch(`${BASE_URL}${endpoint}`, {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: HEADERS,
       body: JSON.stringify(data)
     })
 

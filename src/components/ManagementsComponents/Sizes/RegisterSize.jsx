@@ -2,27 +2,19 @@ import { useState } from 'react'
 import { getSizeType } from '../../../services/sizeTypeService'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { createSize } from '../../../services/sizeService'
-import { notification } from 'antd'
+import { openNotification } from '../../../utils/notifications'
 
 export const RegisterSize = ({ closeForm }) => {
   const [sizeName, setSizeName] = useState('')
   const [codeSizeType, setCodeSizeType] = useState(null)
   const queryClient = useQueryClient()
-  const { data: sizeTypes, isLoading, isError } = useQuery('sizeType', getSizeType)
-
-  const openNotification = (type, message) => {
-    notification[type]({
-      message,
-      placement: 'bottomRight',
-      duration: 2
-    })
-  }
+  const { data: sizeTypes, isLoading, isError } = useQuery('size-type', () => getSizeType(0, 5))
 
   const mutation = useMutation((newSize) => createSize(newSize.name, newSize.codeSizeType), {
     onSuccess: () => {
       setSizeName('')
       setCodeSizeType(null)
-      openNotification('success', 'Talla creado con éxito!')
+      openNotification('success', 'Talla creada con éxito!')
       queryClient.invalidateQueries('size')
       closeForm()
     },

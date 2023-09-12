@@ -1,7 +1,14 @@
 import { fetchData, postData, deleteData } from '../utils/apiUtils'
 
-export async function getCategories () {
-  return fetchData('/category')
+export async function getCategory (pageNumber = 0, pageSize = 5, sortField = null, sortOrder = null) {
+  let endpoint = `/category/list-category?user=SYSTEM&pageNumber=${pageNumber}&pageSize=${pageSize}`
+
+  if (sortField && sortOrder) {
+    const direction = sortOrder === 'ascend' ? 'asc' : 'desc'
+    endpoint += `&sort=${direction}&sortColumn=${sortField}`
+  }
+
+  return fetchData(endpoint)
 }
 
 export async function createCategory (name, description) {

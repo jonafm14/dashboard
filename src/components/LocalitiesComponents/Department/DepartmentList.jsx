@@ -2,8 +2,9 @@ import { Button, Table, Modal, Alert, notification } from 'antd'
 import { DeleteOutlined } from '@ant-design/icons'
 import { useState } from 'react'
 import { RegisterDepartment } from './RegisterDepartment'
-import { useQuery, useMutation } from 'react-query'
+import { useMutation } from 'react-query'
 import { getDepartments, deleteDepartment } from '../../../services/departmentService'
+import usePagedQuery from '../../../hook/usePagedQuery'
 
 export const DepartmentList = () => {
   const [isModalVisible, setIsModalVisible] = useState(false)
@@ -23,19 +24,10 @@ export const DepartmentList = () => {
     })
   }
 
-  const queryInfo = useQuery(
-    ['department', pagination],
-    () => getDepartments(
-      pagination.current - 1,
-      pagination.pageSize,
-      pagination.sortField,
-      pagination.sortOrder
-    ),
-    { keepPreviousData: true }
-  )
+  const queryInfo = usePagedQuery('department', getDepartments, pagination)
 
   const { data, isLoading, isError } = queryInfo
-  console.log(data)
+
   const deleteMutation = useMutation(deleteDepartment)
 
   const handleTableChange = (pagination, filters, sorter) => {
@@ -79,6 +71,11 @@ export const DepartmentList = () => {
   }
 
   const columns = [
+    {
+      title: 'Code',
+      dataIndex: 'code',
+      width: '50px'
+    },
     {
       title: 'Nombre',
       dataIndex: 'name',

@@ -1,12 +1,12 @@
-import { Button, Table, Alert } from 'antd'
+import { Alert, Button, Table } from 'antd'
 import { DeleteOutlined } from '@ant-design/icons'
-import { useState } from 'react'
 import { useMutation } from 'react-query'
-import { deleteProvince, getProvince } from '../../../services/provinceService'
+import { deleteSizeType, getSizeType } from '../../../services/sizeTypeService'
+import { useState } from 'react'
 import usePagedQuery from '../../../hook/usePagedQuery'
 import { openNotification } from '../../../utils/notifications'
 
-export const ProvinceList = () => {
+export const SizeTypeList = () => {
   const [pagination, setPagination] = useState({
     current: 1,
     pageSize: 5,
@@ -15,10 +15,10 @@ export const ProvinceList = () => {
     sortOrder: null
   })
 
-  const queryInfo = usePagedQuery('province', getProvince, pagination)
+  const queryInfo = usePagedQuery('size-type', getSizeType, pagination)
 
   const { data, isLoading, isError } = queryInfo
-  const deleteMutation = useMutation(deleteProvince)
+  const deleteMutation = useMutation(deleteSizeType)
 
   const handleTableChange = (pagination, filters, sorter) => {
     const { field, order } = sorter
@@ -34,17 +34,17 @@ export const ProvinceList = () => {
   const handleDelete = (id) => {
     deleteMutation.mutate(id, {
       onSuccess: () => {
-        openNotification('success', 'Provincia eliminada con éxito!')
+        openNotification('success', 'Tipo de talla eliminado con éxito!')
         queryInfo.refetch()
       },
       onError: (error) => {
-        openNotification('error', 'Hubo un error al eliminar la provincia.')
-        console.error('Failed to delete province:', error)
+        openNotification('error', 'Hubo un error al eliminar el tipo de talla.')
+        console.error('Failed to delete sizeType:', error)
       }
     })
   }
 
-  const provincesColumns = [
+  const sizesColumns = [
     {
       title: 'Code',
       dataIndex: 'code',
@@ -53,7 +53,7 @@ export const ProvinceList = () => {
     {
       title: 'Nombre',
       dataIndex: 'name',
-      key: 'name'
+      sorter: true
     },
     {
       title: 'Eliminar',
@@ -73,21 +73,21 @@ export const ProvinceList = () => {
 
   return (
     <div>
-    {isLoading && <div>Cargando provincias...</div>}
-    {isError && <Alert message="Error cargando provincias" type="error" />}
+    {isLoading && <div>Cargando tallas...</div>}
+    {isError && <Alert message="Error cargando tipos de tallas" type="error" />}
     {data &&
-      <Table
-      className="pt-5"
-      columns={provincesColumns}
-      dataSource={data}
-      pagination={{
-        current: pagination.current,
-        pageSize: pagination.pageSize,
-        total: data.totalElements
-      }}
-      onChange={handleTableChange}
-      rowKey="name"
-    />
+       <Table
+       className="pt-5"
+       columns={sizesColumns}
+       dataSource={data}
+       pagination={{
+         current: pagination.current,
+         pageSize: pagination.pageSize,
+         total: data.totalElements
+       }}
+       onChange={handleTableChange}
+       rowKey="name"
+     />
     }
   </div>
   )

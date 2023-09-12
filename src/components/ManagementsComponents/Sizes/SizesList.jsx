@@ -1,26 +1,41 @@
-import { Alert, Button, Table, notification } from 'antd'
+import { Alert, Button, Table } from 'antd'
 import { DeleteOutlined } from '@ant-design/icons'
-import { useMutation, useQuery, useQueryClient } from 'react-query'
+import { useMutation } from 'react-query'
 import { deleteSize, getSize } from '../../../services/sizeService'
+import { useState } from 'react'
+import usePagedQuery from '../../../hook/usePagedQuery'
+import { openNotification } from '../../../utils/notifications'
 
 export const SizeList = () => {
-  const queryClient = useQueryClient()
-  const { data, isLoading, isError } = useQuery('size', getSize)
-  console.log(data)
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 5,
+    total: 0,
+    sortField: null,
+    sortOrder: null
+  })
+
+  const queryInfo = usePagedQuery('size', getSize, pagination)
+
+  const { data, isLoading, isError } = queryInfo
   const deleteMutation = useMutation(deleteSize)
-  const openNotification = (type, message) => {
-    notification[type]({
-      message,
-      placement: 'bottomRight',
-      duration: 2
-    })
+
+  const handleTableChange = (pagination, filters, sorter) => {
+    const { field, order } = sorter
+    setPagination(prev => ({
+      ...prev,
+      current: pagination.current,
+      pageSize: pagination.pageSize,
+      sortField: field,
+      sortOrder: order
+    }))
   }
 
   const handleDelete = (id) => {
     deleteMutation.mutate(id, {
       onSuccess: () => {
         openNotification('success', 'Talla eliminada con éxito!')
-        queryClient.invalidateQueries('size')
+        queryInfo.refetch()
       },
       onError: (error) => {
         openNotification('error', 'Hubo un error al eliminar la talla.')
@@ -30,6 +45,11 @@ export const SizeList = () => {
   }
 
   const sizesColumns = [
+    {
+      title: 'Code',
+      dataIndex: 'code',
+      width: '50px'
+    },
     {
       title: 'Nombre',
       dataIndex: 'name',
@@ -56,7 +76,18 @@ export const SizeList = () => {
     {isLoading && <div>Cargando tallas...</div>}
     {isError && <Alert message="Error cargando tallas" type="error" />}
     {data &&
-      <Table dataSource={data} columns={sizesColumns} rowKey="id" pagination={false} />
+      <Table
+      className="pt-5"
+      columns={sizesColumns}
+      dataSource={data}
+      pagination={{
+        current: pagination.current,
+        pageSize: pagination.pageSize,
+        total: data.totalElements
+      }}
+      onChange={handleTableChange}
+      rowKey="name"
+    />
     }
   </div>
   )

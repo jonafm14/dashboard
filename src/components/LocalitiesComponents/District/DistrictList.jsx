@@ -1,59 +1,59 @@
-import { Button, Table, Modal, Alert, notification } from 'antd'
+import { Button, Table, Alert } from 'antd'
 import { DeleteOutlined } from '@ant-design/icons'
 import { useState } from 'react'
-import { RegisterDistrict } from './RegisterDistrict'
-import { useMutation, useQuery, useQueryClient } from 'react-query'
-import { deleteDistrict, getDistricts } from '../../../services/districtService'
+import { useMutation } from 'react-query'
+import usePagedQuery from '../../../hook/usePagedQuery'
+import { openNotification } from '../../../utils/notifications'
+import { deleteDistrict, getDisctrict } from '../../../services/districtService'
 
 export const DistrictsList = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false)
-  const queryClient = useQueryClient()
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 5,
+    total: 0,
+    sortField: null,
+    sortOrder: null
+  })
 
-  const openNotification = (type, message) => {
-    notification[type]({
-      message,
-      placement: 'bottomRight',
-      duration: 2
-    })
-  }
+  const queryInfo = usePagedQuery('district', getDisctrict, pagination)
 
-  const { data, isLoading, isError } = useQuery('district', getDistricts)
-
+  const { data, isLoading, isError } = queryInfo
   const deleteMutation = useMutation(deleteDistrict)
+
+  const handleTableChange = (pagination, sorter) => {
+    const { field, order } = sorter
+    setPagination(prev => ({
+      ...prev,
+      current: pagination.current,
+      pageSize: pagination.pageSize,
+      sortField: field,
+      sortOrder: order
+    }))
+  }
 
   const handleDelete = (id) => {
     deleteMutation.mutate(id, {
       onSuccess: () => {
         openNotification('success', 'Distrito eliminado con éxito!')
-        queryClient.invalidateQueries('district')
+        queryInfo.refetch()
       },
       onError: (error) => {
-        openNotification('error', 'Hubo un error al eliminar el ditrito.')
+        openNotification('error', 'Hubo un error al eliminar el distrito.')
         console.error('Failed to delete district:', error)
       }
     })
   }
 
-  const handleCloseModal = () => {
-    setIsModalVisible(false)
-  }
-
-  const showModal = () => {
-    setIsModalVisible(true)
-  }
-
-  const handleOk = () => {
-    setIsModalVisible(false)
-  }
-
-  const handleCancel = () => {
-    setIsModalVisible(false)
-  }
-
-  const columns = [
+  const provincesColumns = [
+    {
+      title: 'Code',
+      dataIndex: 'code',
+      width: '50px'
+    },
     {
       title: 'Nombre',
-      dataIndex: 'name'
+      dataIndex: 'name',
+      key: 'name'
     },
     {
       title: 'Eliminar',
@@ -72,27 +72,23 @@ export const DistrictsList = () => {
   ]
 
   return (
-    <div className="px-10 w-full mx-auto">
-        <div className="flex justify-between items-center">
-            <h1 className="text-lg">Distritos</h1>
-            <Button onClick={showModal}>Añadir distrito</Button>
-        </div>
-
-        {isLoading && <div>Cargando...</div>}
-
-        {isError && <Alert message="Error fetching district" type="error" />}
-
-        {data && <Table className="pt-5" columns={columns} dataSource={data} rowKey="name" />}
-
-        <Modal
-            title="Registrar Distrito"
-            open={isModalVisible}
-            onOk={handleOk}
-            onCancel={handleCancel}
-            footer={null}
-        >
-            <RegisterDistrict closeForm={handleCloseModal} />
-        </Modal>
-    </div>
+    <div>
+    {isLoading && <div>Cargando distritos...</div>}
+    {isError && <Alert message="Error cargando distritos" type="error" />}
+    {data &&
+      <Table
+      className="pt-5"
+      columns={provincesColumns}
+      dataSource={data}
+      pagination={{
+        current: pagination.current,
+        pageSize: pagination.pageSize,
+        total: data.totalElements
+      }}
+      onChange={handleTableChange}
+      rowKey="name"
+    />
+    }
+  </div>
   )
 }

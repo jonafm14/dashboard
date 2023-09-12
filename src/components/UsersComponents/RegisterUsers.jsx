@@ -1,11 +1,11 @@
 import { useQuery } from 'react-query'
-import { getDistricts } from '../../services/districtService'
+import { getDisctrict } from '../../services/districtService'
 import { useState } from 'react'
 
 export const RegisterUsers = () => {
   const [codeDistrict, setCodeDistrict] = useState('')
 
-  const { data: districts } = useQuery('district', getDistricts)
+  const { data: districts } = useQuery('district', getDisctrict)
 
   return (
         <div className="p-10 w-full mx-auto mt-10">

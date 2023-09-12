@@ -12,6 +12,8 @@ import { SaleChannelComponent } from './SalesChannels/SaleChannelComponent'
 import { SaleChannelList } from './SalesChannels/SaleChannelList'
 import { PaymentMethodComponent } from './PaymentMethodComponents/PaymentMethodComponents'
 import { PaymentMethodList } from './PaymentMethodComponents/PaymentMethodList'
+import { SizeTypeComponent } from './SizeType/SizeTypeComponent'
+import { SizeTypeList } from './SizeType/SizeTypeList'
 
 export const ManagementsComponents = () => {
   return (
@@ -22,8 +24,8 @@ export const ManagementsComponents = () => {
           <SizeList/>
         </div>
         <div className="w-1/3">
-          <ColorComponent/>
-          <ColorList/>
+          <SizeTypeComponent/>
+          <SizeTypeList/>
         </div>
 
         <div className="w-1/3">
@@ -46,10 +48,19 @@ export const ManagementsComponents = () => {
           <SaleChannelList/>
         </div>
       </div>
-      <div className="flex justify-between space-x-10">
+      <div className="flex justify-between space-x-10 mb-10 max-h-1/2">
         <div className="w-1/3">
           <PaymentMethodComponent/>
           <PaymentMethodList/>
+        </div>
+
+        <div className="w-1/3">
+          <ColorComponent/>
+          <ColorList/>
+        </div>
+        <div className="w-1/3">
+          <SaleChannelComponent/>
+          <SaleChannelList/>
         </div>
       </div>
 

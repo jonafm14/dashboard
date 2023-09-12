@@ -1,5 +1,5 @@
-import { DistrictComponent } from '../../components/LocalitiesComponents'
+import { DisctricComponent } from '../../components/LocalitiesComponents/district/DistrictComponent'
 
 export const DistrictPage = () => {
-  return <DistrictComponent/>
+  return <DisctricComponent/>
 }
