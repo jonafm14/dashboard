@@ -58,7 +58,7 @@ export const RegisterProvince = ({ closeForm }) => {
             type="text"
             id="province"
             name="province"
-            placeholder="Ejemplo: XL o 42"
+            placeholder="Nombre de la provincia"
             value={provinceName}
             onChange={(e) => setProvinceName(e.target.value)}
             required

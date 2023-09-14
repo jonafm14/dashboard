@@ -58,7 +58,7 @@ export const RegisterDistrict = ({ closeForm }) => {
             type="text"
             id="district"
             name="district"
-            placeholder="Ejemplo: XL o 42"
+            placeholder="Nombre del distrito"
             value={districtName}
             onChange={(e) => setDistrictName(e.target.value)}
             required
