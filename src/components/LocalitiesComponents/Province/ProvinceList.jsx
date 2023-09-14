@@ -2,9 +2,9 @@ import { Button, Table, Alert } from 'antd'
 import { DeleteOutlined } from '@ant-design/icons'
 import { useState } from 'react'
 import { useMutation } from 'react-query'
-import { deleteProvince } from '../../../services/provinceService'
 import usePagedQuery from '../../../hook/usePagedQuery'
 import { openNotification } from '../../../utils/notifications'
+import { deleteDataApi } from '../../../hook/useService'
 
 export const ProvinceList = () => {
   const [pagination, setPagination] = useState({
@@ -18,7 +18,7 @@ export const ProvinceList = () => {
   const queryInfo = usePagedQuery('province', '/province/listprovince', pagination)
 
   const { data, isLoading, isError } = queryInfo
-  const deleteMutation = useMutation(deleteProvince)
+  const deleteMutation = useMutation(deleteDataApi)
 
   const handleTableChange = (pagination, filters, sorter) => {
     const { field, order } = sorter
@@ -32,7 +32,7 @@ export const ProvinceList = () => {
   }
 
   const handleDelete = (id) => {
-    deleteMutation.mutate(id, {
+    deleteMutation.mutate({ baseUrl: '/province', id }, {
       onSuccess: () => {
         openNotification('success', 'Provincia eliminada con éxito!')
         queryInfo.refetch()
