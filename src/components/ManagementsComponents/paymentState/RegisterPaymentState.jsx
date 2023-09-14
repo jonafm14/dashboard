@@ -3,25 +3,25 @@ import { useMutation, useQueryClient } from 'react-query'
 import { openNotification } from '../../../utils/notifications'
 import { createDataApi } from '../../../hook/useService'
 
-export const RegisterColor = ({ closeForm }) => {
-  const [colorName, setColorName] = useState('')
+export const RegisterPaymentState = ({ closeForm }) => {
+  const [paymentStateName, setPaymentState] = useState('')
   const queryClient = useQueryClient()
 
-  const mutation = useMutation((newColor) => createDataApi('/color', newColor), {
+  const mutation = useMutation((newPaymentState) => createDataApi('/payment-state', newPaymentState), {
     onSuccess: () => {
-      setColorName('')
-      openNotification('success', 'Color creado con éxito!')
-      queryClient.invalidateQueries('color')
+      setPaymentState('')
+      openNotification('success', 'Estado de pago creado con éxito!')
+      queryClient.invalidateQueries('payment-state')
       closeForm()
     },
     onError: () => {
-      openNotification('error', 'Hubo un error al crear el color.')
+      openNotification('error', 'Hubo un error al crear el estado de pago.')
     }
   })
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    mutation.mutate({ name: colorName })
+    mutation.mutate({ name: paymentStateName })
   }
 
   return (
@@ -29,16 +29,16 @@ export const RegisterColor = ({ closeForm }) => {
               <form className="flex flex-wrap -mx-2" onSubmit={handleSubmit}>
                   <div className="w-full flex">
                       <div className="w-full px-2 mb-4">
-                          <label className="block text-gray-700 mb-2" htmlFor="name">Nombre</label>
+                          <label className="block text-gray-700 mb-2" htmlFor="name">Estado</label>
                           <input
                               className="w-full p-2 border rounded"
                               type="text"
                               id="name"
                               name="name"
-                              placeholder="Ejemplo: Rojo"
+                              placeholder="Ejemplo: Aprovado"
                               required
-                              value={colorName}
-                            onChange={(e) => setColorName(e.target.value)}
+                              value={paymentStateName}
+                            onChange={(e) => setPaymentState(e.target.value)}
                           />
                       </div>
                   </div>

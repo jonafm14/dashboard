@@ -1,34 +1,54 @@
-import { Alert, Button, Table, notification } from 'antd'
+import { Alert, Button, Table } from 'antd'
 import { DeleteOutlined } from '@ant-design/icons'
-import { useMutation, useQuery, useQueryClient } from 'react-query'
-import { deleteSaleChannel, getSaleChannel } from '../../../services/saleChannelService'
+import { useMutation } from 'react-query'
+import { useState } from 'react'
+import usePagedQuery from '../../../hook/usePagedQuery'
+import { deleteDataApi } from '../../../hook/useService'
+import { openNotification } from '../../../utils/notifications'
 
 export const SaleChannelList = () => {
-  const queryClient = useQueryClient()
-  const { data, isLoading, isError } = useQuery('saleChannel', getSaleChannel)
-  const deleteMutation = useMutation(deleteSaleChannel)
-  const openNotification = (type, message) => {
-    notification[type]({
-      message,
-      placement: 'bottomRight',
-      duration: 2
-    })
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 5,
+    total: 0,
+    sortField: null,
+    sortOrder: null
+  })
+  const queryInfo = usePagedQuery('sale-channel', '/sale-channel/list-sale-channel', pagination)
+  const { data, isLoading, isError } = queryInfo
+
+  const deleteMutation = useMutation(deleteDataApi)
+
+  const handleTableChange = (pagination, sorter) => {
+    const { field, order } = sorter
+    setPagination(prev => ({
+      ...prev,
+      current: pagination.current,
+      pageSize: pagination.pageSize,
+      sortField: field,
+      sortOrder: order
+    }))
   }
 
   const handleDelete = (id) => {
-    deleteMutation.mutate(id, {
+    deleteMutation.mutate({ baseUrl: '/sale-channel', id }, {
       onSuccess: () => {
         openNotification('success', 'Canal de venta eliminado con éxito!')
-        queryClient.invalidateQueries('saleChannel')
+        queryInfo.refetch()
       },
       onError: (error) => {
         openNotification('error', 'Hubo un error al eliminar el canal de venta.')
-        console.error('Failed to delete sale channel:', error)
+        console.error('Failed to delete saleChannel:', error)
       }
     })
   }
 
   const saleChannelsColumns = [
+    {
+      title: 'Code',
+      dataIndex: 'code',
+      width: '50px'
+    },
     {
       title: 'Nombre',
       dataIndex: 'name',
@@ -52,11 +72,22 @@ export const SaleChannelList = () => {
 
   return (
     <div>
-    {isLoading && <div>Cargando canales de venta...</div>}
-    {isError && <Alert message="Error cargando canales de venta" type="error" />}
-    {data &&
-      <Table dataSource={data} columns={saleChannelsColumns} rowKey="id" pagination={false} />
-    }
-  </div>
+      {isLoading && <div>Cargando canales de venta...</div>}
+      {isError && <Alert message="Error cargando canales de venta" type="error" />}
+      {data &&
+        <Table
+        className="pt-5"
+        columns={saleChannelsColumns}
+        dataSource={data}
+        pagination={{
+          current: pagination.current,
+          pageSize: pagination.pageSize,
+          total: data.totalElements
+        }}
+        onChange={handleTableChange}
+        rowKey="name"
+      />
+      }
+    </div>
   )
 }

@@ -14,6 +14,8 @@ import { PaymentMethodComponent } from './PaymentMethodComponents/PaymentMethodC
 import { PaymentMethodList } from './PaymentMethodComponents/PaymentMethodList'
 import { SizeTypeComponent } from './SizeType/SizeTypeComponent'
 import { SizeTypeList } from './SizeType/SizeTypeList'
+import { PaymentStateComponent } from './paymentState/PaymentStateComponent'
+import { PaymentStateList } from './paymentState/PaymentStateList'
 
 export const ManagementsComponents = () => {
   return (
@@ -53,14 +55,13 @@ export const ManagementsComponents = () => {
           <PaymentMethodComponent/>
           <PaymentMethodList/>
         </div>
-
+        <div className="w-1/3">
+          <PaymentStateComponent/>
+          <PaymentStateList/>
+        </div>
         <div className="w-1/3">
           <ColorComponent/>
           <ColorList/>
-        </div>
-        <div className="w-1/3">
-          <SaleChannelComponent/>
-          <SaleChannelList/>
         </div>
       </div>
 

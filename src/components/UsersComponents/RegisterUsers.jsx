@@ -1,11 +1,17 @@
-import { useQuery } from 'react-query'
-import { getDisctrict } from '../../services/districtService'
 import { useState } from 'react'
+import usePagedQuery from '../../hook/usePagedQuery'
 
 export const RegisterUsers = () => {
   const [codeDistrict, setCodeDistrict] = useState('')
 
-  const { data: districts } = useQuery('district', getDisctrict)
+  const queryInfo = usePagedQuery('district', '/district/listdistrict', {
+    current: 1,
+    pageSize: 5,
+    total: 0,
+    sortField: null,
+    sortOrder: null
+  })
+  const { data: districts } = queryInfo
 
   return (
         <div className="p-10 w-full mx-auto mt-10">

@@ -1,16 +1,15 @@
 import { useState } from 'react'
-import { getSizeType } from '../../../services/sizeTypeService'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
-import { createSize } from '../../../services/sizeService'
 import { openNotification } from '../../../utils/notifications'
+import { createDataApi, fetchDataApi } from '../../../hook/useService'
 
 export const RegisterSize = ({ closeForm }) => {
   const [sizeName, setSizeName] = useState('')
   const [codeSizeType, setCodeSizeType] = useState(null)
   const queryClient = useQueryClient()
-  const { data: sizeTypes, isLoading, isError } = useQuery('size-type', () => getSizeType(0, 5))
+  const { data: sizeTypes, isLoading, isError } = useQuery('size-type', () => fetchDataApi('/size-type/list-size-type'))
 
-  const mutation = useMutation((newSize) => createSize(newSize.name, newSize.codeSizeType), {
+  const mutation = useMutation((newSize) => createDataApi('/size', newSize), {
     onSuccess: () => {
       setSizeName('')
       setCodeSizeType(null)

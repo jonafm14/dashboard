@@ -1,22 +1,14 @@
 import { useState } from 'react'
-import { notification } from 'antd'
 import { useMutation, useQueryClient } from 'react-query'
-import { createCategory } from '../../../services/categoryService'
+import { createDataApi } from '../../../hook/useService'
+import { openNotification } from '../../../utils/notifications'
 
 export const RegisterCategory = ({ closeForm }) => {
   const [categoryName, setCategoryName] = useState('')
   const [categoryDescription, setCategoryDescription] = useState('')
   const queryClient = useQueryClient()
 
-  const openNotification = (type, message) => {
-    notification[type]({
-      message,
-      placement: 'bottomRight',
-      duration: 2
-    })
-  }
-
-  const mutation = useMutation((newCategory) => createCategory(newCategory.name, newCategory.description), {
+  const mutation = useMutation((newCategory) => createDataApi('/category', newCategory), {
     onSuccess: () => {
       setCategoryName('')
       setCategoryDescription('')
@@ -45,7 +37,7 @@ export const RegisterCategory = ({ closeForm }) => {
                             type="text"
                             id="name"
                             name="name"
-                            placeholder="Nombre"
+                            placeholder="Nombre de la categoria"
                             required
                             value={categoryName}
                             onChange={(e) => setCategoryName(e.target.value)}

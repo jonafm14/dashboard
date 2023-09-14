@@ -1,16 +1,15 @@
 import { useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
-import { createProvince } from '../../../services/provinceService'
-import { getDepartments } from '../../../services/departmentService'
 import { openNotification } from '../../../utils/notifications'
+import { createDataApi, fetchDataApi } from '../../../hook/useService'
 
 export const RegisterProvince = ({ closeForm }) => {
   const [provinceName, setProvinceName] = useState('')
   const [codeDepartment, setCodeDepartment] = useState(null)
   const queryClient = useQueryClient()
-  const { data: departments, isLoading, isError } = useQuery('department', () => getDepartments(0, 5))
+  const { data: departments, isLoading, isError } = useQuery('department', () => fetchDataApi('/department'))
 
-  const mutation = useMutation((newProvince) => createProvince(newProvince.name, newProvince.codeDepartment), {
+  const mutation = useMutation((newProvince) => createDataApi('/provinces', newProvince), {
     onSuccess: () => {
       setProvinceName('')
       setCodeDepartment(null)

@@ -1,21 +1,13 @@
 import { useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
-import { createState } from '../../../services/stateService'
-import { notification } from 'antd'
+import { createDataApi } from '../../../hook/useService'
+import { openNotification } from '../../../utils/notifications'
 
 export const RegisterState = ({ closeForm }) => {
   const [stateName, setStateName] = useState('')
   const queryClient = useQueryClient()
 
-  const openNotification = (type, message) => {
-    notification[type]({
-      message,
-      placement: 'bottomRight',
-      duration: 2
-    })
-  }
-
-  const mutation = useMutation((newState) => createState(newState.name), {
+  const mutation = useMutation((newState) => createDataApi('/state', newState), {
     onSuccess: () => {
       setStateName('')
       openNotification('success', 'Estado creado con éxito!')

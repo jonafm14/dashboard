@@ -1,10 +1,10 @@
 import { Alert, Button, Table } from 'antd'
 import { DeleteOutlined } from '@ant-design/icons'
 import { useMutation } from 'react-query'
-import { deleteSize, getSize } from '../../../services/sizeService'
 import { useState } from 'react'
 import usePagedQuery from '../../../hook/usePagedQuery'
 import { openNotification } from '../../../utils/notifications'
+import { deleteDataApi } from '../../../hook/useService'
 
 export const SizeList = () => {
   const [pagination, setPagination] = useState({
@@ -15,10 +15,10 @@ export const SizeList = () => {
     sortOrder: null
   })
 
-  const queryInfo = usePagedQuery('size', getSize, pagination)
+  const queryInfo = usePagedQuery('size', '/size/list-size', pagination)
 
   const { data, isLoading, isError } = queryInfo
-  const deleteMutation = useMutation(deleteSize)
+  const deleteMutation = useMutation(deleteDataApi)
 
   const handleTableChange = (pagination, filters, sorter) => {
     const { field, order } = sorter
@@ -32,7 +32,7 @@ export const SizeList = () => {
   }
 
   const handleDelete = (id) => {
-    deleteMutation.mutate(id, {
+    deleteMutation.mutate({ baseUrl: '/size', id }, {
       onSuccess: () => {
         openNotification('success', 'Talla eliminada con éxito!')
         queryInfo.refetch()

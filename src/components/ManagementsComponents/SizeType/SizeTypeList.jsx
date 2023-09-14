@@ -1,10 +1,10 @@
 import { Alert, Button, Table } from 'antd'
 import { DeleteOutlined } from '@ant-design/icons'
 import { useMutation } from 'react-query'
-import { deleteSizeType, getSizeType } from '../../../services/sizeTypeService'
 import { useState } from 'react'
 import usePagedQuery from '../../../hook/usePagedQuery'
 import { openNotification } from '../../../utils/notifications'
+import { deleteDataApi } from '../../../hook/useService'
 
 export const SizeTypeList = () => {
   const [pagination, setPagination] = useState({
@@ -15,10 +15,10 @@ export const SizeTypeList = () => {
     sortOrder: null
   })
 
-  const queryInfo = usePagedQuery('size-type', getSizeType, pagination)
+  const queryInfo = usePagedQuery('size-type', '/size-type/list-size-type', pagination)
 
   const { data, isLoading, isError } = queryInfo
-  const deleteMutation = useMutation(deleteSizeType)
+  const deleteMutation = useMutation(deleteDataApi)
 
   const handleTableChange = (pagination, filters, sorter) => {
     const { field, order } = sorter
@@ -32,14 +32,14 @@ export const SizeTypeList = () => {
   }
 
   const handleDelete = (id) => {
-    deleteMutation.mutate(id, {
+    deleteMutation.mutate({ baseUrl: '/size-type', id }, {
       onSuccess: () => {
-        openNotification('success', 'Tipo de talla eliminado con éxito!')
+        openNotification('success', 'Tipo de talla eliminada con éxito!')
         queryInfo.refetch()
       },
       onError: (error) => {
         openNotification('error', 'Hubo un error al eliminar el tipo de talla.')
-        console.error('Failed to delete sizeType:', error)
+        console.error('Failed to delete size type:', error)
       }
     })
   }

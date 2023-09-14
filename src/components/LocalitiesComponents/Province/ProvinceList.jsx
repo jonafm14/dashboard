@@ -2,7 +2,7 @@ import { Button, Table, Alert } from 'antd'
 import { DeleteOutlined } from '@ant-design/icons'
 import { useState } from 'react'
 import { useMutation } from 'react-query'
-import { deleteProvince, getProvince } from '../../../services/provinceService'
+import { deleteProvince } from '../../../services/provinceService'
 import usePagedQuery from '../../../hook/usePagedQuery'
 import { openNotification } from '../../../utils/notifications'
 
@@ -15,7 +15,7 @@ export const ProvinceList = () => {
     sortOrder: null
   })
 
-  const queryInfo = usePagedQuery('province', getProvince, pagination)
+  const queryInfo = usePagedQuery('province', '/province/listprovince', pagination)
 
   const { data, isLoading, isError } = queryInfo
   const deleteMutation = useMutation(deleteProvince)

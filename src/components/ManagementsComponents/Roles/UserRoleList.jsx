@@ -1,34 +1,54 @@
-import { Alert, Button, Table, notification } from 'antd'
+import { Alert, Button, Table } from 'antd'
 import { DeleteOutlined } from '@ant-design/icons'
-import { useMutation, useQuery, useQueryClient } from 'react-query'
-import { deleteUserRole, getUserRole } from '../../../services/userRoleService'
+import { useMutation } from 'react-query'
+import usePagedQuery from '../../../hook/usePagedQuery'
+import { useState } from 'react'
+import { deleteDataApi } from '../../../hook/useService'
+import { openNotification } from '../../../utils/notifications'
 
 export const UserRoleList = () => {
-  const queryClient = useQueryClient()
-  const { data, isLoading, isError } = useQuery('role', getUserRole)
-  const deleteMutation = useMutation(deleteUserRole)
-  const openNotification = (type, message) => {
-    notification[type]({
-      message,
-      placement: 'bottomRight',
-      duration: 2
-    })
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 5,
+    total: 0,
+    sortField: null,
+    sortOrder: null
+  })
+  const queryInfo = usePagedQuery('user-role', '/user-role/list', pagination)
+  const { data, isLoading, isError } = queryInfo
+
+  const deleteMutation = useMutation(deleteDataApi)
+
+  const handleTableChange = (pagination, sorter) => {
+    const { field, order } = sorter
+    setPagination(prev => ({
+      ...prev,
+      current: pagination.current,
+      pageSize: pagination.pageSize,
+      sortField: field,
+      sortOrder: order
+    }))
   }
 
   const handleDelete = (id) => {
-    deleteMutation.mutate(id, {
+    deleteMutation.mutate({ baseUrl: '/user-role', id }, {
       onSuccess: () => {
         openNotification('success', 'Rol eliminado con éxito!')
-        queryClient.invalidateQueries('role')
+        queryInfo.refetch()
       },
       onError: (error) => {
         openNotification('error', 'Hubo un error al eliminar el rol.')
-        console.error('Failed to delete role:', error)
+        console.error('Failed to delete user role:', error)
       }
     })
   }
 
   const rolesColumns = [
+    {
+      title: 'Code',
+      dataIndex: 'code',
+      width: '50px'
+    },
     {
       title: 'Nombre',
       dataIndex: 'name',
@@ -52,11 +72,22 @@ export const UserRoleList = () => {
 
   return (
     <div>
-    {isLoading && <div>Cargando roles...</div>}
-    {isError && <Alert message="Error cargando roles" type="error" />}
-    {data &&
-      <Table dataSource={data} columns={rolesColumns} rowKey="id" pagination={false} />
-    }
-  </div>
+      {isLoading && <div>Cargando roles...</div>}
+      {isError && <Alert message="Error cargando roles" type="error" />}
+      {data &&
+        <Table
+        className="pt-5"
+        columns={rolesColumns}
+        dataSource={data}
+        pagination={{
+          current: pagination.current,
+          pageSize: pagination.pageSize,
+          total: data.totalElements
+        }}
+        onChange={handleTableChange}
+        rowKey="name"
+      />
+      }
+    </div>
   )
 }

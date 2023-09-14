@@ -1,25 +1,17 @@
 import { useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
-import { notification } from 'antd'
-import { createUserRole } from '../../../services/userRoleService'
+import { openNotification } from '../../../utils/notifications'
+import { createDataApi } from '../../../hook/useService'
 
 export const RegisterUserRole = ({ closeForm }) => {
   const [userRoleName, setUserRoleName] = useState('')
   const queryClient = useQueryClient()
 
-  const openNotification = (type, message) => {
-    notification[type]({
-      message,
-      placement: 'bottomRight',
-      duration: 2
-    })
-  }
-
-  const mutation = useMutation((newUserRole) => createUserRole(newUserRole.name), {
+  const mutation = useMutation((newUSerRole) => createDataApi('/user-role', newUSerRole), {
     onSuccess: () => {
       setUserRoleName('')
       openNotification('success', 'Rol creado con éxito!')
-      queryClient.invalidateQueries('state')
+      queryClient.invalidateQueries('user-role')
       closeForm()
     },
     onError: () => {

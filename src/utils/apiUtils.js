@@ -50,22 +50,3 @@ export async function deleteData (endpoint) {
     throw error
   }
 }
-
-export async function putData (endpoint, data) {
-  try {
-    const response = await fetch(`${BASE_URL}${endpoint}`, {
-      method: 'PUT',
-      headers: HEADERS,
-      body: JSON.stringify(data)
-    })
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`)
-    }
-
-    return response.json()
-  } catch (error) {
-    console.error(`There was a problem putting data to endpoint ${endpoint}:`, error.message)
-    throw error
-  }
-}

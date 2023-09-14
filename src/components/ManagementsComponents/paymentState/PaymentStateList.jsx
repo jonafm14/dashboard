@@ -1,12 +1,12 @@
-import { Button, Table, Alert } from 'antd'
+import { Alert, Button, Table } from 'antd'
 import { DeleteOutlined } from '@ant-design/icons'
-import { useState } from 'react'
 import { useMutation } from 'react-query'
 import usePagedQuery from '../../../hook/usePagedQuery'
+import { useState } from 'react'
 import { deleteDataApi } from '../../../hook/useService'
 import { openNotification } from '../../../utils/notifications'
 
-export const DepartmentList = () => {
+export const PaymentStateList = () => {
   const [pagination, setPagination] = useState({
     current: 1,
     pageSize: 5,
@@ -15,12 +15,12 @@ export const DepartmentList = () => {
     sortOrder: null
   })
 
-  const queryInfo = usePagedQuery('department', '/department', pagination)
-
+  const queryInfo = usePagedQuery('payment-state', '/payment-state/list', pagination)
   const { data, isLoading, isError } = queryInfo
+
   const deleteMutation = useMutation(deleteDataApi)
 
-  const handleTableChange = (pagination, filters, sorter) => {
+  const handleTableChange = (pagination, sorter) => {
     const { field, order } = sorter
     setPagination(prev => ({
       ...prev,
@@ -32,19 +32,19 @@ export const DepartmentList = () => {
   }
 
   const handleDelete = (id) => {
-    deleteMutation.mutate({ baseUrl: '/department', id }, {
+    deleteMutation.mutate({ baseUrl: '/payment-state', id }, {
       onSuccess: () => {
-        openNotification('success', 'Departamento eliminado con éxito!')
+        openNotification('success', 'Estado de pago eliminado con éxito!')
         queryInfo.refetch()
       },
       onError: (error) => {
-        openNotification('error', 'Hubo un error al eliminar el departamento.')
-        console.error('Failed to delete department:', error)
+        openNotification('error', 'Hubo un error al eliminar el estado de pago.')
+        console.error('Failed to delete user role:', error)
       }
     })
   }
 
-  const columns = [
+  const paymentStatesColumns = [
     {
       title: 'Code',
       dataIndex: 'code',
@@ -53,7 +53,7 @@ export const DepartmentList = () => {
     {
       title: 'Nombre',
       dataIndex: 'name',
-      sorter: true
+      key: 'name'
     },
     {
       title: 'Eliminar',
@@ -73,22 +73,22 @@ export const DepartmentList = () => {
 
   return (
     <div>
-    {isLoading && <div>Cargando departamentos...</div>}
-    {isError && <Alert message="Error cargando distritos" type="error" />}
-    {data.content &&
-      <Table
-      className="pt-5"
-      columns={columns}
-      dataSource={data.content}
-      pagination={{
-        current: pagination.current,
-        pageSize: pagination.pageSize,
-        total: data.totalElements
-      }}
-      onChange={handleTableChange}
-      rowKey="name"
-    />
-    }
-  </div>
+      {isLoading && <div>Cargando Estados de pago...</div>}
+      {isError && <Alert message="Error cargando Estados de pago" type="error" />}
+      {data &&
+        <Table
+        className="pt-5"
+        columns={paymentStatesColumns}
+        dataSource={data}
+        pagination={{
+          current: pagination.current,
+          pageSize: pagination.pageSize,
+          total: data.totalElements
+        }}
+        onChange={handleTableChange}
+        rowKey="name"
+      />
+      }
+    </div>
   )
 }

@@ -1,37 +1,27 @@
 import { useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
-import { notification } from 'antd'
-import { createSizeType } from '../../../services/sizeTypeService'
+import { openNotification } from '../../../utils/notifications'
+import { createDataApi } from '../../../hook/useService'
 
 export const RegisterSizeType = ({ closeForm }) => {
-  const [sizeName, setSizeName] = useState('')
-  const [codeSizeType, setCodeSizeType] = useState(null)
+  const [sizeTypeName, setSizeTypeName] = useState('')
   const queryClient = useQueryClient()
 
-  const openNotification = (type, message) => {
-    notification[type]({
-      message,
-      placement: 'bottomRight',
-      duration: 2
-    })
-  }
-
-  const mutation = useMutation((newSizeType) => createSizeType(newSizeType.name), {
+  const mutation = useMutation((newSize) => createDataApi('/size-type', newSize), {
     onSuccess: () => {
-      setSizeName('')
-      setCodeSizeType(null)
+      setSizeTypeName('')
       openNotification('success', 'Tipo de talla creado con éxito!')
-      queryClient.invalidateQueries('size')
+      queryClient.invalidateQueries('size-type')
       closeForm()
     },
     onError: () => {
-      openNotification('error', 'Hubo un error al crear el tipo talla.')
+      openNotification('error', 'Hubo un error al crear el tipo de talla.')
     }
   })
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    mutation.mutate({ name: sizeName, codeSizeType })
+    mutation.mutate({ name: sizeTypeName })
   }
 
   return (
@@ -45,8 +35,8 @@ export const RegisterSizeType = ({ closeForm }) => {
             id="sizeValue"
             name="sizeValue"
             placeholder="Ejemplo: Numérico"
-            value={sizeName}
-            onChange={(e) => setSizeName(e.target.value)}
+            value={sizeTypeName}
+            onChange={(e) => setSizeTypeName(e.target.value)}
             required
           />
         </div>
