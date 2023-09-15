@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { Welcome } from '../pages/Welcome'
 import { MainLayout } from '../components/layouts'
-import { DepartmentPage, DistrictPage, PaymentPage, ProvincePage, UsersTable, ModulesPage, ChannelsPage, ManagementsPage } from '../pages'
+import { DepartmentPage, DistrictPage, PaymentPage, ProvincePage, UsersTable, ModulesPage, ChannelsPage, ManagementsPage, LoginPage } from '../pages'
 
 export const Routers = () => {
   return (
@@ -95,6 +95,12 @@ export const Routers = () => {
               </MainLayout>
           }
         />
+        <Route
+            path='/login'
+            element={
+             <LoginPage/>
+        }
+          />
             </Routes>
         </BrowserRouter>
   )
