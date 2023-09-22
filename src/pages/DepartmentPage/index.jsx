@@ -1,5 +1,5 @@
-import { DepartmentComponent } from '../../components/LocalitiesComponents'
+import Department from '../../components/LocalitiesComponents/department'
 
 export const DepartmentPage = () => {
-  return <DepartmentComponent/>
+  return <Department/>
 }

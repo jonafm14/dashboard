@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { openNotification } from '../../../utils/notifications'
 import { createDataApi } from '../../../hook/useService'
+import ButtonAdd from '../../ButtonAdd'
 
 export const RegisterColor = ({ closeForm }) => {
   const [colorName, setColorName] = useState('')
@@ -43,7 +44,7 @@ export const RegisterColor = ({ closeForm }) => {
                       </div>
                   </div>
               <div className="w-full px-2">
-                <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">Registrar</button>
+                <ButtonAdd/>
               </div>
             </form>
           </div>

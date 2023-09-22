@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { createDataApi } from '../../../hook/useService'
 import { openNotification } from '../../../utils/notifications'
+import ButtonAdd from '../../ButtonAdd'
 
 export const RegisterCategory = ({ closeForm }) => {
   const [categoryName, setCategoryName] = useState('')
@@ -58,7 +59,7 @@ export const RegisterCategory = ({ closeForm }) => {
                     </div>
                 </div>
             <div className="w-full px-2">
-              <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">Registrar</button>
+              <ButtonAdd/>
             </div>
           </form>
         </div>

@@ -1,6 +1,7 @@
-import { Button, Modal } from 'antd'
+import { Modal } from 'antd'
 import { useState } from 'react'
 import { RegisterSize } from './RegisterSize'
+import ButtonAdd from '../../ButtonAdd'
 
 export const SizeComponent = () => {
   const [isModalVisible, setIsModalVisible] = useState(false)
@@ -22,9 +23,9 @@ export const SizeComponent = () => {
   }
 
   return (
-        <div className="flex justify-between items-center mb-5">
+        <div className="flex justify-between items-center my-1">
             <h2 className='text-lg'>Tallas</h2>
-            <Button onClick={showModal}>Agregar Talla</Button>
+            <ButtonAdd onClick={showModal}/>
 
             <Modal title="Agregar talla"
                   open={isModalVisible}

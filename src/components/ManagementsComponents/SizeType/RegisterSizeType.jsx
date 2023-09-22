@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { openNotification } from '../../../utils/notifications'
 import { createDataApi } from '../../../hook/useService'
+import ButtonRegister from '../../ButtonRegister'
 
 export const RegisterSizeType = ({ closeForm }) => {
   const [sizeTypeName, setSizeTypeName] = useState('')
@@ -41,7 +42,7 @@ export const RegisterSizeType = ({ closeForm }) => {
           />
         </div>
         <div className="w-full px-2">
-          <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">Registrar</button>
+          <ButtonRegister/>
         </div>
       </form>
     </div>

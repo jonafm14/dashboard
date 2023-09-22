@@ -73,22 +73,22 @@ export const SizeList = () => {
 
   return (
     <div>
-    {isLoading && <div>Cargando tallas...</div>}
-    {isError && <Alert message="Error cargando tallas" type="error" />}
-    {data &&
-      <Table
-      className="pt-5"
-      columns={sizesColumns}
-      dataSource={data}
-      pagination={{
-        current: pagination.current,
-        pageSize: pagination.pageSize,
-        total: data.totalElements
-      }}
-      onChange={handleTableChange}
-      rowKey="name"
-    />
-    }
-  </div>
+      {isLoading && <div>Cargando tallas...</div>}
+      {isError && <Alert message="Error cargando tallas" type="error" />}
+      {data &&
+        <Table
+          className="pt-5"
+          columns={sizesColumns}
+          dataSource={data}
+          pagination={{
+            current: pagination.current,
+            pageSize: pagination.pageSize,
+            total: data.totalElements
+          }}
+          onChange={handleTableChange}
+          rowKey="name"
+        />
+      }
+    </div>
   )
 }

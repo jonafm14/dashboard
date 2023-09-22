@@ -1,6 +1,7 @@
-import { Button, Modal } from 'antd'
+import { Modal } from 'antd'
 import { useState } from 'react'
 import { RegisterState } from './RegisterState'
+import ButtonAdd from '../../ButtonAdd'
 
 export const StateComponent = () => {
   const [isModalVisible, setIsModalVisible] = useState(false)
@@ -22,9 +23,9 @@ export const StateComponent = () => {
   }
 
   return (
-        <div className="flex justify-between items-center mb-5">
+    <div className="flex justify-between items-center my-1">
             <h2 className='text-lg'>Estados para modulos</h2>
-            <Button onClick={showModal}>Agregar Estado</Button>
+            <ButtonAdd onClick={showModal}/>
 
             <Modal title="Agregar estado"
                   open={isModalVisible}

@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { Button, Modal } from 'antd'
-import { DepartmentList } from './DepartmentList'
+import { Modal } from 'antd'
 import { RegisterDepartment } from './RegisterDepartment'
+import ButtonAdd from '../../ButtonAdd'
 
 export const DepartmentComponent = () => {
   const [isModalVisible, setIsModalVisible] = useState(false)
@@ -22,10 +22,9 @@ export const DepartmentComponent = () => {
     setIsModalVisible(false)
   }
   return (
-<div className='px-10 w-full mx-auto'>
-        <div className="flex justify-between items-center mb-5">
+    <div className='flex justify-between items-center my-1'>
             <h2 className='text-lg'>Departamentos</h2>
-              <Button onClick={showModal}>Agregar departamento</Button>
+              <ButtonAdd onClick={showModal}/>
               <Modal title="Agregar distrito"
                   open={isModalVisible}
                   onOk={handleOk}
@@ -33,10 +32,6 @@ export const DepartmentComponent = () => {
                   footer={null}>
                   <RegisterDepartment closeForm={handleCloseModal}/>
               </Modal>
-        </div>
-        <div>
-            <DepartmentList/>
-        </div>
     </div>
   )
 }

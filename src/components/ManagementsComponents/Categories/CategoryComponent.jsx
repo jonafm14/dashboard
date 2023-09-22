@@ -1,6 +1,7 @@
-import { Button, Modal } from 'antd'
+import { Modal } from 'antd'
 import { useState } from 'react'
 import { RegisterCategory } from './RegisterCategory'
+import ButtonAdd from '../../ButtonAdd'
 
 export const CategoryComponent = () => {
   const [isModalVisible, setIsModalVisible] = useState(false)
@@ -22,9 +23,9 @@ export const CategoryComponent = () => {
   }
 
   return (
-        <div className="flex justify-between items-center mb-5">
+    <div className="flex justify-between items-center my-1">
             <h2 className='text-lg'>Categorias</h2>
-            <Button onClick={showModal}>Agregar Categoria</Button>
+            <ButtonAdd onClick={showModal}/>
 
             <Modal title="Agregar categoria"
                 open={isModalVisible}

@@ -1,4 +1,4 @@
-import { Form, Input, Button, Row, Col, Typography } from 'antd'
+import { Form, Input, Row, Col } from 'antd'
 
 export const FormLogin = ({ handleLogin }) => {
   const onFinish = (values) => {
@@ -9,7 +9,7 @@ export const FormLogin = ({ handleLogin }) => {
     <div className="flex flex-wrap flex-col text-center">
       <Row gutter={[16, 16]}>
         <Col xs={24}>
-          <p className="text-[#003566] text-4xl font-semibold">
+          <p className="text-primary text-4xl font-semibold">
           ¡Bienvenid@! Ingresa a tu cuenta.
           </p>
         </Col>
@@ -43,14 +43,14 @@ export const FormLogin = ({ handleLogin }) => {
               <Input.Password placeholder="Contraseña" className="h-[32pt]"/>
             </Form.Item>
             <Form.Item className="flex justify-center">
-              <Button className="mt-[20pt] mb-[5pt] bg-[#275f6f] border-[#275f6f] text-[#fcfcfc] shadow-none rounded-[20px] h-[38px]" htmlType="submit">
+              <button className="mt-[20pt] mb-[5pt] bg-primary hover:bg-primary/90 border-primary text-[#fcfcfc] shadow-none rounded-[20px] p-4" type="submit">
                 INICIAR SESIÓN
-              </Button>
+              </button>
             </Form.Item>
           </Form>
-          <Typography.Link style={{ color: '#2f8e8d' }}>
+          <button className='text-primary hover:text-primary/80'>
            ¿Olvidaste tu contraseña?
-          </Typography.Link>
+          </button>
         </Col>
       </Row>
 

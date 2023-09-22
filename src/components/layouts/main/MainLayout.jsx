@@ -26,11 +26,13 @@ export const MainLayout = (props) => {
         <AuditOutlined />
       </Link>
     ),
-    getItem('Localidades', '2', <BankOutlined />, 'localities', [
-      getItem('Departamentos', '3', <Link to="/department" />, 'localities'),
-      getItem('Provincias', '4', <Link to="/province" />, 'localities'),
-      getItem('Distritos', '5', <Link to="/district" />, 'localities')
-    ]),
+    getItem(
+      'Localidades',
+      '2',
+      <Link to="/localities">
+        <BankOutlined />
+      </Link>
+    ),
     getItem(
       'Modulos',
       '6',

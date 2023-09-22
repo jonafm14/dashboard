@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { openNotification } from '../../../utils/notifications'
 import { createDataApi, fetchDataApi } from '../../../hook/useService'
+import ButtonRegister from '../../ButtonRegister'
 
 export const RegisterDistrict = ({ closeForm }) => {
   const [districtName, setDistrictName] = useState('')
@@ -65,7 +66,7 @@ export const RegisterDistrict = ({ closeForm }) => {
           />
         </div>
         <div className="w-full px-2">
-          <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">Registrar</button>
+          <ButtonRegister/>
         </div>
       </form>
     </div>

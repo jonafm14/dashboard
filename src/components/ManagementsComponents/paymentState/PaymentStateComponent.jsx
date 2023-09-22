@@ -1,6 +1,7 @@
-import { Button, Modal } from 'antd'
+import { Modal } from 'antd'
 import { useState } from 'react'
 import { RegisterPaymentState } from './RegisterPaymentState'
+import ButtonAdd from '../../ButtonAdd'
 
 export const PaymentStateComponent = () => {
   const [isModalVisible, setIsModalVisible] = useState(false)
@@ -22,9 +23,9 @@ export const PaymentStateComponent = () => {
   }
 
   return (
-        <div className="flex justify-between items-center mb-5">
+    <div className="flex justify-between items-center my-1">
             <h2 className='text-lg'>Estados de pago</h2>
-            <Button type='default' onClick={showModal}>Agregar Estado de pago</Button>
+            <ButtonAdd onClick={showModal}/>
 
             <Modal title="Agregar estado de pago"
                 open={isModalVisible}
