@@ -7,6 +7,7 @@ import { State } from './States'
 import { PaymentMethod } from './PaymentMethodComponents'
 import { PaymentState } from './paymentState'
 import { Color } from './Color'
+import { Ecommerce } from './EcommerceChannel'
 
 export const ManagementsComponents = () => {
   return (
@@ -21,6 +22,7 @@ export const ManagementsComponents = () => {
           <PaymentMethod/>
           <PaymentState/>
           <Category/>
+          <Ecommerce/>
       </div>
     </div>
   )

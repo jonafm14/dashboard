@@ -1,6 +1,6 @@
 import React from 'react'
 import { Layout, Menu } from 'antd'
-import { AuditOutlined, BankOutlined, ShopOutlined, PartitionOutlined, FileTextOutlined, DollarOutlined } from '@ant-design/icons'
+import { AuditOutlined, BankOutlined, PartitionOutlined, FileTextOutlined, DollarOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import Footer from './Footer'
 import Header from './Header'
@@ -41,22 +41,15 @@ export const MainLayout = (props) => {
       </Link>
     ),
     getItem(
-      'Canales',
-      '7',
-      <Link to="/channels">
-        <ShopOutlined />
-      </Link>
-    ),
-    getItem(
       'Pagos',
-      '8',
+      '7',
       <Link to="/payments">
         <DollarOutlined />
       </Link>
     ),
     getItem(
-      'Gestion',
-      '9',
+      'Gestión',
+      '8',
       <Link to="/managements">
         <FileTextOutlined />
       </Link>

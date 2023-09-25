@@ -1,20 +1,24 @@
 import { useState } from 'react'
 import usePagedQuery from '../../hook/usePagedQuery'
+import ButtonRegister from '../ButtonRegister'
 
-export const RegisterUsers = () => {
+export const RegisterUser = () => {
   const [codeDistrict, setCodeDistrict] = useState('')
-
-  const queryInfo = usePagedQuery('district', '/district/listdistrict', {
+  const [pagination] = useState({
     current: 1,
     pageSize: 5,
     total: 0,
     sortField: null,
     sortOrder: null
   })
-  const { data: districts } = queryInfo
+  const queryInfoRole = usePagedQuery('role', '/user-role/list', pagination)
+  const queryInfoDisctrict = usePagedQuery('district', '/district/listdistrict', pagination)
+
+  const { data: roles } = queryInfoRole
+  const { data: districts } = queryInfoDisctrict
 
   return (
-        <div className="p-10 w-full mx-auto mt-10">
+        <div className="p-10 w-full mx-auto">
           <h1 className="text-lg mb-5">Registrar usuario</h1>
 
           <form className="flex flex-wrap -mx-2">
@@ -82,16 +86,18 @@ export const RegisterUsers = () => {
               <div className="w-full px-2 mb-4">
                   <label className="block text-gray-700 mb-2" htmlFor="type">Tipo de usuario</label>
                   <select className="w-full p-2 border rounded" id="type" name="type">
-                      <option value="administrador">Administrador</option>
-                      <option value="auxiliar">Auxiliar</option>
-                      <option value="vendedor">Vendedor</option>
+                      <option value="" disabled>Selecciona un tipo de usuario</option>
+                      {roles && roles.map((role) => (
+                        <option key={role.code} value={role.name.toLowerCase()}>
+                          {role.name}
+                        </option>
+                      ))}
                   </select>
               </div>
             </div>
-
-              <div className="w-full px-2">
-                  <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">Registrar</button>
-              </div>
+            <div className='ml-2'>
+              <ButtonRegister/>
+            </div>
           </form>
         </div>
   )

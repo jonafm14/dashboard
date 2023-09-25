@@ -1,7 +1,7 @@
-import { UsersComponent } from '../../components/UsersComponents'
+import { User } from '../../components/UsersComponents'
 
 export const UsersTable = () => {
   return (
-      <UsersComponent/>
+      <User/>
   )
 }

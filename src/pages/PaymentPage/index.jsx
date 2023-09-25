@@ -1,5 +1,5 @@
-import { PaymentComponent } from '../../components/PaymentComponents/PaymentComponents'
+import { Payment } from '../../components/PaymentComponents'
 
 export const PaymentPage = () => {
-  return <PaymentComponent/>
+  return <Payment/>
 }

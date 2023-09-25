@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { Welcome } from '../pages/Welcome'
 import { MainLayout } from '../components/layouts'
-import { PaymentPage, UsersTable, ModulesPage, ChannelsPage, ManagementsPage, LoginPage } from '../pages'
+import { PaymentPage, UsersTable, ModulesPage, ManagementsPage, LoginPage } from '../pages'
 import { LocalitiesPage } from '../pages/LocalitiesPage'
 
 export const Routers = () => {
@@ -34,15 +34,6 @@ export const Routers = () => {
             element={
             <MainLayout>
               <ModulesPage
-              />
-            </MainLayout>
-        }
-          />
-          <Route
-            path='/channels'
-            element={
-            <MainLayout>
-              <ChannelsPage
               />
             </MainLayout>
         }
