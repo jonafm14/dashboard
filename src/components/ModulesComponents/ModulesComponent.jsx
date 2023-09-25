@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import ModuleInfo from './Modules/ModuleInfo'
 import UserInfo from './Users/UserInfo'
+import Module from './Modules'
 
 export const prices = {
   1: { id: 1, name: 'Módulo de Ventas', '1 mes': 3.0, '6 meses': 16.2, '12 meses': 28.8, status: 'Activo' },
@@ -20,36 +20,20 @@ export const userData = [
 ]
 
 export const ModulesComponent = () => {
-  const [isModuleModalVisible, setModuleModalVisible] = useState(false)
   const [isAssignModalVisible, setAssignModalVisible] = useState(false)
-
-  const showModuleModal = () => {
-    setModuleModalVisible(true)
-  }
 
   const showAssignModal = () => {
     setAssignModalVisible(true)
-  }
-
-  const handleModuleModalClose = () => {
-    setModuleModalVisible(false)
   }
 
   const handleAssignModalClose = () => {
     setAssignModalVisible(false)
   }
 
-  const dataSource = Object.values(prices)
-
   return (
-    <div className='px-10 w-full mx-auto flex justify-between space-x-6'>
-        <div className="w-1/2">
-            <ModuleInfo
-                dataSource={dataSource}
-                isModuleModalVisible={isModuleModalVisible}
-                handleModuleModalClose={handleModuleModalClose}
-                showModuleModal={showModuleModal}
-            />
+    <div className='mx-auto w-4/5'>
+      <div className="flex flex-wrap justify-between gap-4 mb-10">
+            <Module/>
         </div>
         <div className="w-1/2">
             <UserInfo

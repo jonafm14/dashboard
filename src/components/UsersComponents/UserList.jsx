@@ -53,56 +53,47 @@ export const UserList = () => {
     {
       title: 'Nombre',
       dataIndex: 'name',
-      key: 'name',
-      sorter: true
+      key: 'name'
     },
     {
       title: 'Apellido',
       dataIndex: 'surname',
-      key: 'surname',
-      sorter: true
+      key: 'surname'
     },
     {
       title: 'Correo',
       dataIndex: 'email',
-      key: 'email',
-      sorter: true
+      key: 'email'
     },
     {
       title: 'Contraseña',
       dataIndex: 'password',
-      key: 'password',
-      sorter: true
+      key: 'password'
     },
     {
       title: 'Distrito',
       dataIndex: 'district',
-      key: 'district',
-      sorter: true
+      key: 'district'
     },
     {
       title: 'Dirección',
       dataIndex: 'adress',
-      key: 'adress',
-      sorter: true
+      key: 'adress'
     },
     {
       title: 'Teléfono',
       dataIndex: 'phoneNumber',
-      key: 'phoneNumber',
-      sorter: true
+      key: 'phoneNumber'
     },
     {
       title: 'Género',
       dataIndex: 'gender',
-      key: 'gender',
-      sorter: true
+      key: 'gender'
     },
     {
       title: 'Rol del usuario',
       dataIndex: 'userType',
-      key: 'userType',
-      sorter: true
+      key: 'userType'
     },
     {
       title: 'Eliminar',
