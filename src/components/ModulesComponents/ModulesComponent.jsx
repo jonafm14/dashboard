@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import UserInfo from './Users/UserInfo'
+import React from 'react'
+
 import Module from './Modules'
 
 export const prices = {
@@ -20,29 +20,13 @@ export const userData = [
 ]
 
 export const ModulesComponent = () => {
-  const [isAssignModalVisible, setAssignModalVisible] = useState(false)
-
-  const showAssignModal = () => {
-    setAssignModalVisible(true)
-  }
-
-  const handleAssignModalClose = () => {
-    setAssignModalVisible(false)
-  }
-
   return (
     <div className='mx-auto w-4/5'>
       <div className="flex flex-wrap justify-between gap-4 mb-10">
             <Module/>
         </div>
         <div className="w-1/2">
-            <UserInfo
-                userData={userData}
-                prices={prices}
-                isAssignModalVisible={isAssignModalVisible}
-                handleAssignModalClose={handleAssignModalClose}
-                showAssignModal={showAssignModal}
-            />
+
         </div>
     </div>
   )
