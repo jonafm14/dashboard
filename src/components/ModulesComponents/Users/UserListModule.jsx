@@ -1,12 +1,9 @@
 import { Alert, Button, Table } from 'antd'
-import { DeleteOutlined } from '@ant-design/icons'
-import { useMutation } from 'react-query'
+import { EditOutlined } from '@ant-design/icons'
 import { useState } from 'react'
-import { openNotification } from '../../utils/notifications'
-import usePagedQuery from '../../hook/usePagedQuery'
-import { deleteDataApi } from '../../hook/useService'
+import usePagedQuery from '../../../hook/usePagedQuery'
 
-export const UserList = () => {
+const UserListModule = () => {
   const [pagination, setPagination] = useState({
     current: 1,
     pageSize: 5,
@@ -18,7 +15,7 @@ export const UserList = () => {
   const queryInfo = usePagedQuery('users', '/users', pagination)
 
   const { data, isLoading, isError } = queryInfo
-  const deleteMutation = useMutation(deleteDataApi)
+  console.log(data)
 
   const handleTableChange = (pagination, sorter) => {
     const { field, order } = sorter
@@ -29,19 +26,6 @@ export const UserList = () => {
       sortField: field,
       sortOrder: order
     }))
-  }
-
-  const handleDelete = (id) => {
-    deleteMutation.mutate({ baseUrl: '/users', id }, {
-      onSuccess: () => {
-        openNotification('success', 'Usuario eliminada con éxito!')
-        queryInfo.refetch()
-      },
-      onError: (error) => {
-        openNotification('error', 'Hubo un error al eliminar el usuario.')
-        console.error('Failed to delete users:', error)
-      }
-    })
   }
 
   const usersColumns = [
@@ -66,40 +50,30 @@ export const UserList = () => {
       key: 'email'
     },
     {
-      title: 'Distrito',
-      dataIndex: 'district',
-      key: 'district'
-    },
-    {
-      title: 'Dirección',
-      dataIndex: 'adress',
-      key: 'adress'
-    },
-    {
-      title: 'Teléfono',
-      dataIndex: 'phoneNumber',
-      key: 'phoneNumber'
-    },
-    {
-      title: 'Género',
-      dataIndex: 'gender',
-      key: 'gender'
-    },
-    {
       title: 'Rol del usuario',
       dataIndex: 'userType',
       key: 'userType'
     },
     {
-      title: 'Eliminar',
+      title: 'Modulos asignados',
+      dataIndex: 'modules',
+      key: 'modules',
+      render: modules => (
+          <>
+            {modules.map((module, index) => (
+              <div key={index}>{module}</div>
+            ))}
+          </>
+      )
+    },
+    {
+      title: 'Editar',
       align: 'center',
       dataIndex: 'action',
       render: (text, record) => (
         <Button
-          danger
           type="link"
-          icon={<DeleteOutlined />}
-          onClick={() => handleDelete(record.code)}
+          icon={<EditOutlined />}
         />
       )
     }
@@ -126,3 +100,5 @@ export const UserList = () => {
     </div>
   )
 }
+
+export default UserListModule

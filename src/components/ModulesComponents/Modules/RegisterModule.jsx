@@ -28,22 +28,51 @@ export const RegisterModule = ({ closeForm }) => {
   return (
     <div className="w-full mx-auto">
       <form className="flex flex-wrap -mx-2" onSubmit={handleSubmit}>
-        <div className="w-full flex">
-          <div className="w-full px-2 mb-4">
-            <label className="block text-gray-700 mb-2" htmlFor="name">Nombre</label>
-            <input
-              className="w-full p-2 border rounded"
-              type="text"
-              id="name"
-              name="name"
-              placeholder="Nombre"
-              required
-              value={departmentName}
-              onChange={(e) => setDepartmentName(e.target.value)}
-            />
-          </div>
+        <div className="w-1/2 px-2 mb-4">
+          <label className="block text-gray-700 mb-2" htmlFor="sizeType">Nombre del modulo</label>
+          <input
+            className="w-full p-2 border rounded"
+            type="text"
+            id="sizeValue"
+            name="sizeValue"
+            placeholder="Ejemplo: XL o 42"
+            required
+          />
         </div>
 
+        <div className="w-1/2 px-2 mb-4">
+          <label className="block text-gray-700 mb-2" htmlFor="sizeValue">Precio 1 mes</label>
+          <input
+            className="w-full p-2 border rounded"
+            type="text"
+            id="sizeValue"
+            name="sizeValue"
+            placeholder="Ejemplo: XL o 42"
+            required
+          />
+        </div>
+        <div className="w-1/2 px-2 mb-4">
+          <label className="block text-gray-700 mb-2" htmlFor="sizeValue">Precio 6 mes</label>
+          <input
+            className="w-full p-2 border rounded"
+            type="text"
+            id="sizeValue"
+            name="sizeValue"
+            placeholder="Ejemplo: XL o 42"
+            required
+          />
+        </div>
+        <div className="w-1/2 px-2 mb-4">
+          <label className="block text-gray-700 mb-2" htmlFor="sizeValue">Precio 12 mes</label>
+          <input
+            className="w-full p-2 border rounded"
+            type="text"
+            id="sizeValue"
+            name="sizeValue"
+            placeholder="Ejemplo: XL o 42"
+            required
+          />
+        </div>
         <div className="w-full px-2">
           <ButtonRegister/>
         </div>

@@ -1,6 +1,7 @@
 import React from 'react'
 
 import Module from './Modules'
+import { UserModule } from './Users'
 
 export const prices = {
   1: { id: 1, name: 'Módulo de Ventas', '1 mes': 3.0, '6 meses': 16.2, '12 meses': 28.8, status: 'Activo' },
@@ -21,12 +22,12 @@ export const userData = [
 
 export const ModulesComponent = () => {
   return (
-    <div className='mx-auto w-4/5'>
+    <div className='mx-auto'>
       <div className="flex flex-wrap justify-between gap-4 mb-10">
-            <Module/>
+          <Module/>
         </div>
-        <div className="w-1/2">
-
+        <div className="">
+          <UserModule/>
         </div>
     </div>
   )

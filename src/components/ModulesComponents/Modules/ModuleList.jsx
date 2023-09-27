@@ -18,7 +18,6 @@ export const ModuleList = () => {
   const queryInfo = usePagedQuery('modules', '/modules', pagination)
 
   const { data, isLoading, isError } = queryInfo
-  console.log('data', data)
   const deleteMutation = useMutation(deleteDataApi)
 
   const handleTableChange = (pagination, filters, sorter) => {

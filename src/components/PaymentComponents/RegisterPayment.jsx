@@ -25,7 +25,7 @@ export const RegisterPayment = () => {
   const { data: ecommerce } = queryInfoEcommerce
 
   return (
-    <div className="p-10 w-full mx-auto">
+    <div className="w-full mx-auto">
       <h1 className="text-lg mb-5">Registrar Pago</h1>
       <form className="flex flex-wrap -mx-2">
       <div className="w-full flex">

@@ -4,7 +4,7 @@ import { ModuleList } from './ModuleList'
 
 const Module = () => {
   return (
-        <Card content={
+        <Card size='full' content={
             <>
                 <ModuleComponent/>
                 <ModuleList/>
