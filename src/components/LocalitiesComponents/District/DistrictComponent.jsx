@@ -1,7 +1,7 @@
-import { Button, Modal } from 'antd'
+import { Modal } from 'antd'
 import { useState } from 'react'
 import { RegisterDistrict } from './RegisterDistrict'
-import { DistrictsList } from './DistrictList'
+import ButtonAdd from '../../ButtonAdd'
 
 export const DisctricComponent = () => {
   const [isModalVisible, setIsModalVisible] = useState(false)
@@ -23,10 +23,9 @@ export const DisctricComponent = () => {
   }
 
   return (
-    <div className='px-10 w-full mx-auto'>
-        <div className="flex justify-between items-center mb-5">
+    <div className='flex justify-between items-center my-1'>
             <h2 className='text-lg'>Distritos</h2>
-              <Button onClick={showModal}>Agregar Distrito</Button>
+              <ButtonAdd onClick={showModal}/>
               <Modal title="Agregar distrito"
                   open={isModalVisible}
                   onOk={handleOk}
@@ -34,10 +33,6 @@ export const DisctricComponent = () => {
                   footer={null}>
                   <RegisterDistrict closeForm={handleCloseModal}/>
               </Modal>
-        </div>
-        <div>
-            <DistrictsList/>
-        </div>
     </div>
 
   )

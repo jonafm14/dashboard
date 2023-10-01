@@ -1,6 +1,7 @@
-import { Button, Modal } from 'antd'
+import { Modal } from 'antd'
 import { useState } from 'react'
 import { RegisterSaleChannel } from './RegisterSaleChannel'
+import ButtonAdd from '../../ButtonAdd'
 
 export const SaleChannelComponent = () => {
   const [isModalVisible, setIsModalVisible] = useState(false)
@@ -22,9 +23,9 @@ export const SaleChannelComponent = () => {
   }
 
   return (
-        <div className="flex justify-between items-center mb-5">
+    <div className="flex justify-between items-center my-1">
             <h2 className='text-lg'>Canales de venta</h2>
-            <Button onClick={showModal}>Agregar Canal de venta</Button>
+            <ButtonAdd onClick={showModal}/>
 
             <Modal title="Agregar canal de venta"
                   open={isModalVisible}

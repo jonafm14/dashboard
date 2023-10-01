@@ -1,7 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { Welcome } from '../pages/Welcome'
 import { MainLayout } from '../components/layouts'
-import { DepartmentPage, DistrictPage, PaymentPage, ProvincePage, UsersTable, ModulesPage, ChannelsPage, ManagementsPage } from '../pages'
+import { PaymentPage, UsersTable, ModulesPage, ManagementsPage, LoginPage } from '../pages'
+import { LocalitiesPage } from '../pages/LocalitiesPage'
 
 export const Routers = () => {
   return (
@@ -21,29 +22,10 @@ export const Routers = () => {
         }
           />
           <Route
-            path='/department'
+            path='/localities'
             element={
             <MainLayout>
-              <DepartmentPage
-              />
-            </MainLayout>
-        }
-          />
-          <Route
-            path='/province'
-            element={
-            <MainLayout>
-              <ProvincePage
-              />
-            </MainLayout>
-        }
-          />
-          <Route
-            path='/district'
-            element={
-            <MainLayout>
-              <DistrictPage
-              />
+              <LocalitiesPage/>
             </MainLayout>
         }
           />
@@ -52,15 +34,6 @@ export const Routers = () => {
             element={
             <MainLayout>
               <ModulesPage
-              />
-            </MainLayout>
-        }
-          />
-          <Route
-            path='/channels'
-            element={
-            <MainLayout>
-              <ChannelsPage
               />
             </MainLayout>
         }
@@ -95,6 +68,12 @@ export const Routers = () => {
               </MainLayout>
           }
         />
+        <Route
+            path='/login'
+            element={
+             <LoginPage/>
+        }
+          />
             </Routes>
         </BrowserRouter>
   )

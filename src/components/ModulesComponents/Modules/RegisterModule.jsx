@@ -1,60 +1,82 @@
-export const RegisterModule = () => {
+import { useMutation, useQueryClient } from 'react-query'
+import { useState } from 'react'
+import { openNotification } from '../../../utils/notifications'
+import { createDataApi } from '../../../hook/useService'
+import ButtonRegister from '../../ButtonRegister'
+import { Input } from 'antd'
+
+export const RegisterModule = ({ closeForm }) => {
+  const [departmentName, setDepartmentName] = useState('')
+  const queryClient = useQueryClient()
+
+  const mutation = useMutation((newSize) => createDataApi('/modules', newSize), {
+    onSuccess: () => {
+      setDepartmentName('')
+      openNotification('success', 'Departamento creado con éxito!')
+      queryClient.invalidateQueries('modules')
+      closeForm()
+    },
+    onError: () => {
+      openNotification('error', 'Hubo un error al crear el departamento.')
+    }
+  })
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    mutation.mutate({ name: departmentName })
+  }
+
   return (
     <div className="w-full mx-auto">
-      <form className="flex flex-wrap -mx-2">
-
-        <div className="w-full px-2 mb-4">
-          <label className="block text-gray-700 mb-2" htmlFor="name">Nombre</label>
-          <input
-            className="w-full p-2 border rounded"
+      <form className="flex flex-wrap -mx-2" onSubmit={handleSubmit}>
+        <div className="w-1/2 px-2 mb-4">
+          <label className="block text-gray-700 mb-2" htmlFor="sizeType">Nombre del modulo</label>
+          <Input
+            className="w-full border rounded"
             type="text"
-            id="name"
-            name="name"
-            placeholder="Nombre del módulo"
+            id="sizeValue"
+            name="sizeValue"
+            placeholder="Ejemplo: XL o 42"
             required
           />
         </div>
 
-        <div className="w-1/3 px-2 mb-4">
-          <label className="block text-gray-700 mb-2" htmlFor="1month">Precio 1 mes</label>
-          <input
-            className="w-full p-2 border rounded"
-            type="number"
-            id="1month"
-            name="1month"
-            placeholder="Precio 1 mes"
+        <div className="w-1/2 px-2 mb-4">
+          <label className="block text-gray-700 mb-2" htmlFor="sizeValue">Precio 1 mes</label>
+          <Input
+            className="w-full border rounded"
+            type="text"
+            id="sizeValue"
+            name="sizeValue"
+            placeholder="Ejemplo: XL o 42"
             required
           />
         </div>
-
-        <div className="w-1/3 px-2 mb-4">
-          <label className="block text-gray-700 mb-2" htmlFor="6months">Precio 6 meses</label>
-          <input
-            className="w-full p-2 border rounded"
-            type="number"
-            id="6months"
-            name="6months"
-            placeholder="Precio 6 meses"
+        <div className="w-1/2 px-2 mb-4">
+          <label className="block text-gray-700 mb-2" htmlFor="sizeValue">Precio 6 mes</label>
+          <Input
+            className="w-full border rounded"
+            type="text"
+            id="sizeValue"
+            name="sizeValue"
+            placeholder="Ejemplo: XL o 42"
             required
           />
         </div>
-
-        <div className="w-1/3 px-2 mb-4">
-          <label className="block text-gray-700 mb-2" htmlFor="12months">Precio 12 meses</label>
-          <input
-            className="w-full p-2 border rounded"
-            type="number"
-            id="12months"
-            name="12months"
-            placeholder="Precio 12 meses"
+        <div className="w-1/2 px-2 mb-4">
+          <label className="block text-gray-700 mb-2" htmlFor="sizeValue">Precio 12 mes</label>
+          <Input
+            className="w-full border rounded"
+            type="text"
+            id="sizeValue"
+            name="sizeValue"
+            placeholder="Ejemplo: XL o 42"
             required
           />
         </div>
-
         <div className="w-full px-2">
-          <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">Registrar</button>
+          <ButtonRegister/>
         </div>
-
       </form>
     </div>
   )

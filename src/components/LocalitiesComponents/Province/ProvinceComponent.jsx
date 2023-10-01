@@ -1,7 +1,7 @@
-import { Button, Modal } from 'antd'
+import { Modal } from 'antd'
 import { useState } from 'react'
 import { RegisterProvince } from './RegisterProvince'
-import { ProvinceList } from './ProvinceList'
+import ButtonAdd from '../../ButtonAdd'
 
 export const ProvinceComponent = () => {
   const [isModalVisible, setIsModalVisible] = useState(false)
@@ -23,10 +23,9 @@ export const ProvinceComponent = () => {
   }
 
   return (
-    <div className='px-10 w-full mx-auto'>
-        <div className="flex justify-between items-center mb-5">
+    <div className='flex justify-between items-center my-1'>
             <h2 className='text-lg'>Provincias</h2>
-              <Button onClick={showModal}>Agregar Provincia</Button>
+              <ButtonAdd onClick={showModal}/>
               <Modal title="Agregar provincia"
                   open={isModalVisible}
                   onOk={handleOk}
@@ -34,10 +33,6 @@ export const ProvinceComponent = () => {
                   footer={null}>
                   <RegisterProvince closeForm={handleCloseModal}/>
               </Modal>
-        </div>
-        <div>
-            <ProvinceList/>
-        </div>
     </div>
 
   )

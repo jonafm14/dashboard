@@ -1,5 +1,5 @@
-import { ProvinceComponent } from '../../components/LocalitiesComponents'
+import Province from '../../components/LocalitiesComponents/province'
 
 export const ProvincePage = () => {
-  return <ProvinceComponent/>
+  return <Province/>
 }

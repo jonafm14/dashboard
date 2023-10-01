@@ -1,6 +1,7 @@
-import { Button, Modal } from 'antd'
+import { Modal } from 'antd'
 import { useState } from 'react'
 import { RegisterSizeType } from './RegisterSizeType'
+import ButtonAdd from '../../ButtonAdd'
 
 export const SizeTypeComponent = () => {
   const [isModalVisible, setIsModalVisible] = useState(false)
@@ -22,11 +23,11 @@ export const SizeTypeComponent = () => {
   }
 
   return (
-        <div className="flex justify-between items-center mb-5">
+    <div className="flex justify-between items-center my-1">
             <h2 className='text-lg'>Tipos de tallas</h2>
-            <Button onClick={showModal}>Agregar Tipo de talla</Button>
+            <ButtonAdd onClick={showModal}/>
 
-            <Modal title="Agregar talla"
+            <Modal title="Agregar tipo de talla"
                   open={isModalVisible}
                   onOk={handleOk}
                   onCancel={handleCancel}

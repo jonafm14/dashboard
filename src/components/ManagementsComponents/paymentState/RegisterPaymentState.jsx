@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { openNotification } from '../../../utils/notifications'
 import { createDataApi } from '../../../hook/useService'
+import ButtonRegister from '../../ButtonRegister'
+import { Input } from 'antd'
 
 export const RegisterPaymentState = ({ closeForm }) => {
   const [paymentStateName, setPaymentState] = useState('')
@@ -30,8 +32,8 @@ export const RegisterPaymentState = ({ closeForm }) => {
                   <div className="w-full flex">
                       <div className="w-full px-2 mb-4">
                           <label className="block text-gray-700 mb-2" htmlFor="name">Estado</label>
-                          <input
-                              className="w-full p-2 border rounded"
+                          <Input
+                              className="w-full border rounded"
                               type="text"
                               id="name"
                               name="name"
@@ -43,7 +45,7 @@ export const RegisterPaymentState = ({ closeForm }) => {
                       </div>
                   </div>
               <div className="w-full px-2">
-                <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">Registrar</button>
+                <ButtonRegister/>
               </div>
             </form>
           </div>

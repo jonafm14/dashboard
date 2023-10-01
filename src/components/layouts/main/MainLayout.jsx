@@ -1,6 +1,6 @@
 import React from 'react'
 import { Layout, Menu } from 'antd'
-import { AuditOutlined, BankOutlined, ShopOutlined, PartitionOutlined, FileTextOutlined, DollarOutlined } from '@ant-design/icons'
+import { AuditOutlined, BankOutlined, PartitionOutlined, FileTextOutlined, DollarOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import Footer from './Footer'
 import Header from './Header'
@@ -26,11 +26,13 @@ export const MainLayout = (props) => {
         <AuditOutlined />
       </Link>
     ),
-    getItem('Localidades', '2', <BankOutlined />, 'localities', [
-      getItem('Departamentos', '3', <Link to="/department" />, 'localities'),
-      getItem('Provincias', '4', <Link to="/province" />, 'localities'),
-      getItem('Distritos', '5', <Link to="/district" />, 'localities')
-    ]),
+    getItem(
+      'Localidades',
+      '2',
+      <Link to="/localities">
+        <BankOutlined />
+      </Link>
+    ),
     getItem(
       'Modulos',
       '6',
@@ -39,22 +41,15 @@ export const MainLayout = (props) => {
       </Link>
     ),
     getItem(
-      'Canales',
-      '7',
-      <Link to="/channels">
-        <ShopOutlined />
-      </Link>
-    ),
-    getItem(
       'Pagos',
-      '8',
+      '7',
       <Link to="/payments">
         <DollarOutlined />
       </Link>
     ),
     getItem(
-      'Gestion',
-      '9',
+      'Gestión',
+      '8',
       <Link to="/managements">
         <FileTextOutlined />
       </Link>

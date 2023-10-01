@@ -2,6 +2,9 @@ import { useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { openNotification } from '../../../utils/notifications'
 import { createDataApi, fetchDataApi } from '../../../hook/useService'
+import ButtonRegister from '../../ButtonRegister'
+import { Input, Select } from 'antd'
+import { Option } from 'antd/es/mentions'
 
 export const RegisterSize = ({ closeForm }) => {
   const [sizeName, setSizeName] = useState('')
@@ -35,23 +38,23 @@ export const RegisterSize = ({ closeForm }) => {
       <form className="flex flex-wrap -mx-2" onSubmit={handleSubmit}>
         <div className="w-1/2 px-2 mb-4">
           <label className="block text-gray-700 mb-2" htmlFor="sizeType">Tipo de talla</label>
-          <select
-            className="w-full p-2 border rounded"
+          <Select
+            className="w-full border rounded"
             id="sizeType"
             name="sizeType"
+            placeholder="Selecciona un tipo de talla"
             value={codeSizeType || ''}
-            onChange={(e) => setCodeSizeType(Number(e.target.value))}
+            onChange={(value) => setCodeSizeType(Number(value))}
             required
           >
-            <option value="" disabled>Selecciona una talla</option>
-            {sizeTypes.map(type => <option key={type.code} value={type.code}>{type.name}</option>)}
-          </select>
+            {sizeTypes.map(type => <Option key={type.code} value={type.code}>{type.name}</Option>)}
+          </Select>
         </div>
 
         <div className="w-1/2 px-2 mb-4">
           <label className="block text-gray-700 mb-2" htmlFor="sizeValue">Valor</label>
-          <input
-            className="w-full p-2 border rounded"
+          <Input
+            className="w-full border rounded"
             type="text"
             id="sizeValue"
             name="sizeValue"
@@ -62,7 +65,7 @@ export const RegisterSize = ({ closeForm }) => {
           />
         </div>
         <div className="w-full px-2">
-          <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">Registrar</button>
+          <ButtonRegister/>
         </div>
       </form>
     </div>

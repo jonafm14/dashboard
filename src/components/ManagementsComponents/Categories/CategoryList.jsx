@@ -63,7 +63,6 @@ export const CategoryList = () => {
     },
     {
       title: 'Eliminar',
-      width: '100px',
       align: 'center',
       dataIndex: 'action',
       render: (text, record) => (

@@ -75,7 +75,7 @@ export const DepartmentList = () => {
     <div>
     {isLoading && <div>Cargando departamentos...</div>}
     {isError && <Alert message="Error cargando distritos" type="error" />}
-    {data.content &&
+    {data &&
       <Table
       className="pt-5"
       columns={columns}
