@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from 'react-query'
 import { createDataApi } from '../../../hook/useService'
 import { openNotification } from '../../../utils/notifications'
 import ButtonRegister from '../../ButtonRegister'
+import { Input } from 'antd'
 
 export const RegisterEcommerce = ({ closeForm }) => {
   const [ecommerceName, setEcommerceName] = useState('')
@@ -36,8 +37,8 @@ export const RegisterEcommerce = ({ closeForm }) => {
       <form className="flex flex-wrap -mx-2" onSubmit={handleSubmit}>
         <div className="w-1/2 px-2 mb-4">
           <label className="block text-gray-700 mb-2" htmlFor="name">Nombre</label>
-          <input
-            className="w-full p-2 border rounded"
+          <Input
+            className="w-full border rounded"
             type="text"
             id="name"
             name="name"
@@ -49,8 +50,8 @@ export const RegisterEcommerce = ({ closeForm }) => {
         </div>
         <div className="w-1/2 px-2 mb-4">
           <label className="block text-gray-700 mb-2" htmlFor="url">URL</label>
-          <input
-            className="w-full p-2 border rounded"
+          <Input
+            className="w-full border rounded"
             type="text"
             id="url"
             name="url"
@@ -62,8 +63,8 @@ export const RegisterEcommerce = ({ closeForm }) => {
         </div>
         <div className="w-1/2 px-2 mb-4">
           <label className="block text-gray-700 mb-2" htmlFor="status">Usuario</label>
-          <input
-            className="w-full p-2 border rounded"
+          <Input
+            className="w-full border rounded"
             type="text"
             id="status"
             name="status"
@@ -75,8 +76,8 @@ export const RegisterEcommerce = ({ closeForm }) => {
         </div>
         <div className="w-1/2 px-2 mb-4">
           <label className="block text-gray-700 mb-2" htmlFor="user">Estado</label>
-          <input
-            className="w-full p-2 border rounded"
+          <Input
+            className="w-full border rounded"
             type="text"
             id="status"
             name="status"

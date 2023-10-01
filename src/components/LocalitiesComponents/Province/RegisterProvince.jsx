@@ -3,6 +3,8 @@ import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { openNotification } from '../../../utils/notifications'
 import { createDataApi, fetchDataApi } from '../../../hook/useService'
 import ButtonRegister from '../../ButtonRegister'
+import { Input, Select } from 'antd'
+import { Option } from 'antd/es/mentions'
 
 export const RegisterProvince = ({ closeForm }) => {
   const [provinceName, setProvinceName] = useState('')
@@ -36,26 +38,25 @@ export const RegisterProvince = ({ closeForm }) => {
       <form className="flex flex-wrap -mx-2" onSubmit={handleSubmit}>
         <div className="w-1/2 px-2 mb-4">
           <label className="block text-gray-700 mb-2" htmlFor="codeDepartment">Nombre del departamento</label>
-          <select
-            className="w-full p-2 border rounded"
+          <Select
+            className="w-full"
             id="codeDepartment"
             name="codeDepartment"
             value={codeDepartment || ''}
-            onChange={(e) => {
-              setCodeDepartment(Number(e.target.value))
+            onChange={(value) => {
+              setCodeDepartment(Number(value))
             }}
-
+            placeholder="Selecciona un departamento"
             required
           >
-            <option value="" disabled>Selecciona un departamento</option>
-            {departments.content.map(department => <option key={department.code} value={department.code}>{department.name}</option>)}
-          </select>
+            {departments.content.map(department => <Option key={department.code} value={department.code}>{department.name}</Option>)}
+          </Select>
         </div>
 
         <div className="w-1/2 px-2 mb-4">
           <label className="block text-gray-700 mb-2" htmlFor="province">Provincia</label>
-          <input
-            className="w-full p-2 border rounded"
+          <Input
+            className="w-full"
             type="text"
             id="province"
             name="province"

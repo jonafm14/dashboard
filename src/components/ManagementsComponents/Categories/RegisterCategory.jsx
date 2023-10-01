@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from 'react-query'
 import { createDataApi } from '../../../hook/useService'
 import { openNotification } from '../../../utils/notifications'
 import ButtonAdd from '../../ButtonAdd'
+import { Input } from 'antd'
 
 export const RegisterCategory = ({ closeForm }) => {
   const [categoryName, setCategoryName] = useState('')
@@ -33,8 +34,8 @@ export const RegisterCategory = ({ closeForm }) => {
                 <div className="w-full flex">
                     <div className="w-full px-2 mb-4">
                         <label className="block text-gray-700 mb-2" htmlFor="name">Nombre</label>
-                        <input
-                            className="w-full p-2 border rounded"
+                        <Input
+                            className="w-full border rounded"
                             type="text"
                             id="name"
                             name="name"
@@ -46,8 +47,8 @@ export const RegisterCategory = ({ closeForm }) => {
                     </div>
                     <div className="w-full px-2 mb-4">
                         <label className="block text-gray-700 mb-2" htmlFor="name">Descripcion</label>
-                        <input
-                            className="w-full p-2 border rounded"
+                        <Input
+                            className="w-full border rounded"
                             type="text"
                             id="description"
                             name="description"

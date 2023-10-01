@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from 'react-query'
 import { openNotification } from '../../../utils/notifications'
 import { createDataApi } from '../../../hook/useService'
 import ButtonRegister from '../../ButtonRegister'
+import { Input } from 'antd'
 
 export const RegisterUserRole = ({ closeForm }) => {
   const [userRoleName, setUserRoleName] = useState('')
@@ -30,8 +31,8 @@ export const RegisterUserRole = ({ closeForm }) => {
       <form className="flex flex-wrap -mx-2" onSubmit={handleSubmit}>
         <div className="w-1/2 px-2 mb-4">
           <label className="block text-gray-700 mb-2" htmlFor="roleValue">Rol</label>
-          <input
-            className="w-full p-2 border rounded"
+          <Input
+            className="w-full border rounded"
             type="text"
             id="roleValue"
             name="roleValue"

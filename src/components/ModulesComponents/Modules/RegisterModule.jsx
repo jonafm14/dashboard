@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { openNotification } from '../../../utils/notifications'
 import { createDataApi } from '../../../hook/useService'
 import ButtonRegister from '../../ButtonRegister'
+import { Input } from 'antd'
 
 export const RegisterModule = ({ closeForm }) => {
   const [departmentName, setDepartmentName] = useState('')
@@ -30,8 +31,8 @@ export const RegisterModule = ({ closeForm }) => {
       <form className="flex flex-wrap -mx-2" onSubmit={handleSubmit}>
         <div className="w-1/2 px-2 mb-4">
           <label className="block text-gray-700 mb-2" htmlFor="sizeType">Nombre del modulo</label>
-          <input
-            className="w-full p-2 border rounded"
+          <Input
+            className="w-full border rounded"
             type="text"
             id="sizeValue"
             name="sizeValue"
@@ -42,8 +43,8 @@ export const RegisterModule = ({ closeForm }) => {
 
         <div className="w-1/2 px-2 mb-4">
           <label className="block text-gray-700 mb-2" htmlFor="sizeValue">Precio 1 mes</label>
-          <input
-            className="w-full p-2 border rounded"
+          <Input
+            className="w-full border rounded"
             type="text"
             id="sizeValue"
             name="sizeValue"
@@ -53,8 +54,8 @@ export const RegisterModule = ({ closeForm }) => {
         </div>
         <div className="w-1/2 px-2 mb-4">
           <label className="block text-gray-700 mb-2" htmlFor="sizeValue">Precio 6 mes</label>
-          <input
-            className="w-full p-2 border rounded"
+          <Input
+            className="w-full border rounded"
             type="text"
             id="sizeValue"
             name="sizeValue"
@@ -64,8 +65,8 @@ export const RegisterModule = ({ closeForm }) => {
         </div>
         <div className="w-1/2 px-2 mb-4">
           <label className="block text-gray-700 mb-2" htmlFor="sizeValue">Precio 12 mes</label>
-          <input
-            className="w-full p-2 border rounded"
+          <Input
+            className="w-full border rounded"
             type="text"
             id="sizeValue"
             name="sizeValue"

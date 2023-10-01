@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { notification } from 'antd'
+import { Input, notification } from 'antd'
 import { useMutation, useQueryClient } from 'react-query'
 import { createDataApi } from '../../../hook/useService'
 import ButtonRegister from '../../ButtonRegister'
@@ -39,8 +39,8 @@ export const PaymentMethodRegister = ({ closeForm }) => {
                 <div className="w-full flex">
                     <div className="w-full px-2 mb-4">
                         <label className="block text-gray-700 mb-2" htmlFor="name">Metodo</label>
-                        <input
-                            className="w-full p-2 border rounded"
+                        <Input
+                            className="w-full border rounded"
                             type="text"
                             id="name"
                             name="name"

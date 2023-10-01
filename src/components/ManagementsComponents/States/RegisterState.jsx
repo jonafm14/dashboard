@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from 'react-query'
 import { createDataApi } from '../../../hook/useService'
 import { openNotification } from '../../../utils/notifications'
 import ButtonRegister from '../../ButtonRegister'
+import { Input } from 'antd'
 
 export const RegisterState = ({ closeForm }) => {
   const [stateName, setStateName] = useState('')
@@ -30,8 +31,8 @@ export const RegisterState = ({ closeForm }) => {
       <form className="flex flex-wrap -mx-2" onSubmit={handleSubmit}>
         <div className="w-full px-2 mb-4">
           <label className="block text-gray-700 mb-2" htmlFor="stateValue">Nombre</label>
-          <input
-            className="w-full p-2 border rounded"
+          <Input
+            className="w-full border rounded"
             type="text"
             id="stateValue"
             name="stateValue"
