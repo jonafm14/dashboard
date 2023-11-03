@@ -1,20 +1,20 @@
 import { useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
-import { createDataApi } from '../../../hook/useService'
 import { openNotification } from '../../../utils/notifications'
-import ButtonAdd from '../../ButtonAdd'
+import ButtonRegister from '../../ButtonRegister'
 import { Input } from 'antd'
+import { createCategory } from '../../../service/category'
 
 export const RegisterCategory = ({ closeForm }) => {
   const [categoryName, setCategoryName] = useState('')
   const [categoryDescription, setCategoryDescription] = useState('')
   const queryClient = useQueryClient()
 
-  const mutation = useMutation((newCategory) => createDataApi('/category', newCategory), {
+  const mutation = useMutation((newCategory) => createCategory(newCategory), {
     onSuccess: () => {
       setCategoryName('')
       setCategoryDescription('')
-      openNotification('success', 'Categoria creado con éxito!')
+      openNotification('success', 'Categoria creada con éxito!')
       queryClient.invalidateQueries('category')
       closeForm()
     },
@@ -60,7 +60,7 @@ export const RegisterCategory = ({ closeForm }) => {
                     </div>
                 </div>
             <div className="w-full px-2">
-              <ButtonAdd/>
+              <ButtonRegister/>
             </div>
           </form>
         </div>

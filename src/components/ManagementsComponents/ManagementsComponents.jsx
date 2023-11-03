@@ -1,13 +1,13 @@
 import { SizeType } from './SizeType'
 import { Size } from './Sizes'
 import { SaleChannel } from './SalesChannels'
-import { UserRole } from './Roles'
 import { Category } from './Categories'
 import { State } from './States'
 import { PaymentMethod } from './PaymentMethodComponents'
 import { PaymentState } from './paymentState'
 import { Color } from './Color'
 import { Ecommerce } from './EcommerceChannel'
+import { UserType } from './userType'
 
 export const ManagementsComponents = () => {
   return (
@@ -17,11 +17,11 @@ export const ManagementsComponents = () => {
           <SizeType/>
           <Color/>
           <State/>
-          <UserRole/>
           <SaleChannel/>
           <PaymentMethod/>
           <PaymentState/>
           <Category/>
+          <UserType/>
           <Ecommerce/>
       </div>
     </div>

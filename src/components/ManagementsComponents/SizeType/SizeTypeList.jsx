@@ -4,7 +4,7 @@ import { useMutation } from 'react-query'
 import { useState } from 'react'
 import usePagedQuery from '../../../hook/usePagedQuery'
 import { openNotification } from '../../../utils/notifications'
-import { deleteDataApi } from '../../../hook/useService'
+import { deleteSizeType } from '../../../service/sizeType'
 
 export const SizeTypeList = () => {
   const [pagination, setPagination] = useState({
@@ -18,7 +18,7 @@ export const SizeTypeList = () => {
   const queryInfo = usePagedQuery('size-type', '/size-type/list-size-type', pagination)
 
   const { data, isLoading, isError } = queryInfo
-  const deleteMutation = useMutation(deleteDataApi)
+  const deleteMutation = useMutation(deleteSizeType)
 
   const handleTableChange = (pagination, filters, sorter) => {
     const { field, order } = sorter
@@ -32,7 +32,7 @@ export const SizeTypeList = () => {
   }
 
   const handleDelete = (id) => {
-    deleteMutation.mutate({ baseUrl: '/size-type', id }, {
+    deleteMutation.mutate(id, {
       onSuccess: () => {
         openNotification('success', 'Tipo de talla eliminada con éxito!')
         queryInfo.refetch()

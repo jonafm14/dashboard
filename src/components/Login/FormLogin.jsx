@@ -1,4 +1,4 @@
-import { Form, Input, Row, Col } from 'antd'
+import { Form, Input, Row, Col, Button, Card } from 'antd'
 
 export const FormLogin = ({ handleLogin }) => {
   const onFinish = (values) => {
@@ -6,12 +6,12 @@ export const FormLogin = ({ handleLogin }) => {
   }
 
   return (
-    <div className="flex flex-wrap flex-col text-center">
+    <Card className="flex flex-wrap flex-col text-center">
       <Row gutter={[16, 16]}>
         <Col xs={24}>
-          <p className="text-primary text-4xl font-semibold">
+          <h1 className="text-primary text-4xl font-semibold">
           ¡Bienvenid@! Ingresa a tu cuenta.
-          </p>
+          </h1>
         </Col>
 
         <Col xs={24}>
@@ -43,9 +43,9 @@ export const FormLogin = ({ handleLogin }) => {
               <Input.Password placeholder="Contraseña" className="h-[32pt]"/>
             </Form.Item>
             <Form.Item className="flex justify-center">
-              <button className="mt-[20pt] mb-[5pt] bg-primary hover:bg-primary/90 border-primary text-[#fcfcfc] shadow-none rounded-[20px] p-4" type="submit">
+              <Button htmlType="submit">
                 INICIAR SESIÓN
-              </button>
+              </Button>
             </Form.Item>
           </Form>
           <button className='text-primary hover:text-primary/80'>
@@ -54,6 +54,6 @@ export const FormLogin = ({ handleLogin }) => {
         </Col>
       </Row>
 
-    </div>
+    </Card>
   )
 }

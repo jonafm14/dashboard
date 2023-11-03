@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useMutation } from 'react-query'
 import usePagedQuery from '../../../hook/usePagedQuery'
 import { openNotification } from '../../../utils/notifications'
-import { deleteDataApi } from '../../../hook/useService'
+import { deleteDistrict } from '../../../service/district'
 
 export const DistrictsList = () => {
   const [pagination, setPagination] = useState({
@@ -18,7 +18,7 @@ export const DistrictsList = () => {
   const queryInfo = usePagedQuery('district', '/district/listdistrict', pagination)
 
   const { data, isLoading, isError } = queryInfo
-  const deleteMutation = useMutation(deleteDataApi)
+  const deleteMutation = useMutation(deleteDistrict)
 
   const handleTableChange = (pagination, sorter) => {
     const { field, order } = sorter
@@ -32,7 +32,7 @@ export const DistrictsList = () => {
   }
 
   const handleDelete = (id) => {
-    deleteMutation.mutate({ baseUrl: '/district', id }, {
+    deleteMutation.mutate(id, {
       onSuccess: () => {
         openNotification('success', 'Distrito eliminado con éxito!')
         queryInfo.refetch()

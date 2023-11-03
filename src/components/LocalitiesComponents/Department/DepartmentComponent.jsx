@@ -25,7 +25,7 @@ export const DepartmentComponent = () => {
     <div className='flex justify-between items-center my-1'>
             <h2 className='text-lg'>Departamentos</h2>
               <ButtonAdd onClick={showModal}/>
-              <Modal title="Agregar distrito"
+              <Modal title="Agregar departamento"
                   open={isModalVisible}
                   onOk={handleOk}
                   onCancel={handleCancel}

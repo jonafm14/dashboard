@@ -1,35 +1,31 @@
 import { useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
-import { createDataApi } from '../../../hook/useService'
 import { openNotification } from '../../../utils/notifications'
 import ButtonRegister from '../../ButtonRegister'
 import { Input } from 'antd'
+import { createClientChannel } from '../../../service/clientChannel'
 
 export const RegisterEcommerce = ({ closeForm }) => {
   const [ecommerceName, setEcommerceName] = useState('')
   const [ecommerceUrl, setEcommerceUrl] = useState('')
-  const [ecommerceUser, setEcommerceUser] = useState('')
-  const [ecommerceStatus, setEcommerceStatus] = useState('')
   const queryClient = useQueryClient()
 
-  const mutation = useMutation((newUSerRole) => createDataApi('/client-channels', newUSerRole), {
+  const mutation = useMutation((newUSerRole) => createClientChannel(newUSerRole), {
     onSuccess: () => {
       setEcommerceName('')
       setEcommerceUrl('')
-      setEcommerceUser('')
-      setEcommerceStatus('')
-      openNotification('success', 'Ecommerce creado con éxito!')
-      queryClient.invalidateQueries('client-channels')
+      openNotification('success', 'Canal creado con éxito!')
+      queryClient.invalidateQueries('client-channel')
       closeForm()
     },
     onError: () => {
-      openNotification('error', 'Hubo un error al crear el Ecommerce.')
+      openNotification('error', 'Hubo un error al crear el canal.')
     }
   })
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    mutation.mutate({ ecommerceName, ecommerceUrl, ecommerceUser, ecommerceStatus })
+    mutation.mutate({ name: ecommerceName, url: ecommerceUrl })
   }
 
   return (
@@ -58,32 +54,6 @@ export const RegisterEcommerce = ({ closeForm }) => {
             placeholder="Url del ecommerce"
             value={ecommerceUrl}
             onChange={(e) => setEcommerceUrl(e.target.value)}
-            required
-          />
-        </div>
-        <div className="w-1/2 px-2 mb-4">
-          <label className="block text-gray-700 mb-2" htmlFor="status">Usuario</label>
-          <Input
-            className="w-full border rounded"
-            type="text"
-            id="status"
-            name="status"
-            placeholder="Usuario del ecommerce"
-            value={ecommerceUser}
-            onChange={(e) => setEcommerceUser(e.target.value)}
-            required
-          />
-        </div>
-        <div className="w-1/2 px-2 mb-4">
-          <label className="block text-gray-700 mb-2" htmlFor="user">Estado</label>
-          <Input
-            className="w-full border rounded"
-            type="text"
-            id="status"
-            name="status"
-            placeholder="Usuario del ecommerce"
-            value={ecommerceStatus}
-            onChange={(e) => setEcommerceStatus(e.target.value)}
             required
           />
         </div>

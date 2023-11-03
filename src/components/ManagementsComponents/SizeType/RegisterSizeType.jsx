@@ -1,15 +1,15 @@
 import { useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { openNotification } from '../../../utils/notifications'
-import { createDataApi } from '../../../hook/useService'
 import ButtonRegister from '../../ButtonRegister'
 import { Input } from 'antd'
+import { createSizeType } from '../../../service/sizeType'
 
 export const RegisterSizeType = ({ closeForm }) => {
   const [sizeTypeName, setSizeTypeName] = useState('')
   const queryClient = useQueryClient()
 
-  const mutation = useMutation((newSize) => createDataApi('/size-type', newSize), {
+  const mutation = useMutation((newSize) => createSizeType(newSize), {
     onSuccess: () => {
       setSizeTypeName('')
       openNotification('success', 'Tipo de talla creado con éxito!')
@@ -23,7 +23,7 @@ export const RegisterSizeType = ({ closeForm }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    mutation.mutate({ name: sizeTypeName })
+    mutation.mutate(sizeTypeName)
   }
 
   return (

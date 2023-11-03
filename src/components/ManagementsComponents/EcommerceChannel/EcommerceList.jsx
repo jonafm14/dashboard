@@ -3,8 +3,8 @@ import { DeleteOutlined } from '@ant-design/icons'
 import { useMutation } from 'react-query'
 import usePagedQuery from '../../../hook/usePagedQuery'
 import { useState } from 'react'
-import { deleteDataApi } from '../../../hook/useService'
 import { openNotification } from '../../../utils/notifications'
+import { deleteClientChannel } from '../../../service/clientChannel'
 
 export const EcommerceList = () => {
   const [pagination, setPagination] = useState({
@@ -14,10 +14,10 @@ export const EcommerceList = () => {
     sortField: null,
     sortOrder: null
   })
-  const queryInfo = usePagedQuery('client-channels', '/client-channels', pagination)
+  const queryInfo = usePagedQuery('client-channel', '/client-channel', pagination)
   const { data, isLoading, isError } = queryInfo
 
-  const deleteMutation = useMutation(deleteDataApi)
+  const deleteMutation = useMutation(deleteClientChannel)
 
   const handleTableChange = (pagination, sorter) => {
     const { field, order } = sorter
@@ -31,7 +31,7 @@ export const EcommerceList = () => {
   }
 
   const handleDelete = (id) => {
-    deleteMutation.mutate({ baseUrl: '/client-channels', id }, {
+    deleteMutation.mutate(id, {
       onSuccess: () => {
         openNotification('success', 'Ecommerce eliminado con éxito!')
         queryInfo.refetch()
@@ -46,7 +46,8 @@ export const EcommerceList = () => {
   const ecommerceColumns = [
     {
       title: 'Nombre',
-      dataIndex: 'ecommerceName'
+      dataIndex: 'name',
+      key: 'name'
     },
     {
       title: 'URL',
@@ -89,7 +90,7 @@ export const EcommerceList = () => {
         <Table
         className="pt-5"
         columns={ecommerceColumns}
-        dataSource={data}
+        dataSource={data.content}
         pagination={{
           current: pagination.current,
           pageSize: pagination.pageSize,

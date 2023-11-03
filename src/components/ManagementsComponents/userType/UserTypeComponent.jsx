@@ -1,9 +1,9 @@
 import { Modal } from 'antd'
 import { useState } from 'react'
-import { RegisterUserRole } from './RegisterUserRole'
 import ButtonAdd from '../../ButtonAdd'
+import { RegisterUserType } from './RegisterUserType'
 
-export const UserRoleComponent = () => {
+export const UserTypeComponent = () => {
   const [isModalVisible, setIsModalVisible] = useState(false)
 
   const handleOk = () => {
@@ -24,15 +24,15 @@ export const UserRoleComponent = () => {
 
   return (
     <div className="flex justify-between items-center my-1">
-            <h2 className='text-lg'>Roles</h2>
+            <h2 className='text-lg'>Tipos de usuarios</h2>
             <ButtonAdd onClick={showModal}/>
 
-            <Modal title="Agregar rol"
+            <Modal title="Agregar tipos de usuarios"
                   open={isModalVisible}
                   onOk={handleOk}
                   onCancel={handleCancel}
                   footer={null}>
-                  <RegisterUserRole closeForm={handleCloseModal}/>
+                  <RegisterUserType closeForm={handleCloseModal}/>
             </Modal>
           </div>
   )

@@ -18,6 +18,7 @@ export const ModuleList = () => {
   const queryInfo = usePagedQuery('modules', '/modules', pagination)
 
   const { data, isLoading, isError } = queryInfo
+  console.log('Data', data)
   const deleteMutation = useMutation(deleteDataApi)
 
   const handleTableChange = (pagination, filters, sorter) => {
@@ -80,12 +81,12 @@ export const ModuleList = () => {
   return (
     <div>
     {isLoading && <div>Cargando modulos...</div>}
-    {isError && <Alert message="Error cargando distritos" type="error" />}
+    {isError && <Alert message="Error cargando modulos" type="error" />}
     {data &&
       <Table
       className="pt-5"
       columns={columns}
-      dataSource={data}
+      dataSource={data.content}
       pagination={{
         current: pagination.current,
         pageSize: pagination.pageSize,

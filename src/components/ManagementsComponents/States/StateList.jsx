@@ -3,8 +3,8 @@ import { DeleteOutlined } from '@ant-design/icons'
 import { useMutation } from 'react-query'
 import { useState } from 'react'
 import usePagedQuery from '../../../hook/usePagedQuery'
-import { deleteDataApi } from '../../../hook/useService'
 import { openNotification } from '../../../utils/notifications'
+import { deleteState } from '../../../service/stateForModule'
 
 export const StateList = () => {
   const [pagination, setPagination] = useState({
@@ -17,7 +17,7 @@ export const StateList = () => {
   const queryInfo = usePagedQuery('state', '/state/list', pagination)
   const { data, isLoading, isError } = queryInfo
 
-  const deleteMutation = useMutation(deleteDataApi)
+  const deleteMutation = useMutation(deleteState)
 
   const handleTableChange = (pagination, sorter) => {
     const { field, order } = sorter
@@ -31,7 +31,7 @@ export const StateList = () => {
   }
 
   const handleDelete = (id) => {
-    deleteMutation.mutate({ baseUrl: '/state', id }, {
+    deleteMutation.mutate(id, {
       onSuccess: () => {
         openNotification('success', 'Estado eliminado con éxito!')
         queryInfo.refetch()
