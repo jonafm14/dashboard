@@ -3,6 +3,7 @@ import { Welcome } from '../pages/Welcome'
 import { MainLayout } from '../components/layouts'
 import { PaymentPage, UsersTable, ModulesPage, ManagementsPage, LoginPage } from '../pages'
 import { LocalitiesPage } from '../pages/LocalitiesPage'
+import { ClientsTable } from '../pages/ClientPage'
 
 export const Routers = () => {
   return (
@@ -17,6 +18,15 @@ export const Routers = () => {
             element={
             <MainLayout>
               <UsersTable
+              />
+            </MainLayout>
+        }
+          />
+          <Route
+            path='/clients'
+            element={
+            <MainLayout>
+              <ClientsTable
               />
             </MainLayout>
         }

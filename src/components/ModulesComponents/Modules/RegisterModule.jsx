@@ -12,12 +12,12 @@ export const RegisterModule = ({ closeForm }) => {
   const mutation = useMutation((newSize) => createDataApi('/modules', newSize), {
     onSuccess: () => {
       setDepartmentName('')
-      openNotification('success', 'Departamento creado con éxito!')
+      openNotification('success', 'Modulo creado con éxito!')
       queryClient.invalidateQueries('modules')
       closeForm()
     },
     onError: () => {
-      openNotification('error', 'Hubo un error al crear el departamento.')
+      openNotification('error', 'Hubo un error al crear el modulo.')
     }
   })
 

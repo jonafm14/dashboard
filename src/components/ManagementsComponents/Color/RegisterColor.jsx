@@ -1,15 +1,15 @@
 import { useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { openNotification } from '../../../utils/notifications'
-import { createDataApi } from '../../../hook/useService'
 import ButtonRegister from '../../ButtonRegister'
 import { Input } from 'antd'
+import { createColor } from '../../../service/color'
 
 export const RegisterColor = ({ closeForm }) => {
   const [colorName, setColorName] = useState('')
   const queryClient = useQueryClient()
 
-  const mutation = useMutation((newColor) => createDataApi('/color', newColor), {
+  const mutation = useMutation((newColor) => createColor(newColor), {
     onSuccess: () => {
       setColorName('')
       openNotification('success', 'Color creado con éxito!')
@@ -23,7 +23,7 @@ export const RegisterColor = ({ closeForm }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    mutation.mutate({ name: colorName })
+    mutation.mutate(colorName)
   }
 
   return (

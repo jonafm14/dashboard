@@ -1,5 +1,5 @@
 export const BASE_URL = 'http://localhost:8080/masterdata'
-const HEADERS = {
+export const HEADERS = {
   'Content-Type': 'application/json'
 }
 
@@ -19,6 +19,7 @@ export async function fetchData (endpoint) {
 }
 
 export async function postData (endpoint, data) {
+  console.log('data', JSON.stringify(data))
   try {
     const response = await fetch(`${BASE_URL}${endpoint}`, {
       method: 'POST',
@@ -31,6 +32,23 @@ export async function postData (endpoint, data) {
     return response.json()
   } catch (error) {
     console.error(`There was a problem posting data to endpoint ${endpoint}:`, error.message)
+    throw error
+  }
+}
+
+export async function editData (endpoint, data) {
+  try {
+    const response = await fetch(`${BASE_URL}${endpoint}`, {
+      method: 'PUT',
+      headers: HEADERS,
+      body: JSON.stringify(data)
+    })
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`)
+    }
+    return response.json()
+  } catch (error) {
+    console.error(`There was a problem editing data at endpoint ${endpoint}:`, error.message)
     throw error
   }
 }

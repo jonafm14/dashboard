@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { openNotification } from '../../../utils/notifications'
-import { createDataApi, fetchDataApi } from '../../../hook/useService'
+import { fetchDataApi } from '../../../hook/useService'
 import ButtonRegister from '../../ButtonRegister'
 import { Input, Select } from 'antd'
 import { Option } from 'antd/es/mentions'
+import { createProvince } from '../../../service/province'
 
 export const RegisterProvince = ({ closeForm }) => {
   const [provinceName, setProvinceName] = useState('')
@@ -12,7 +13,7 @@ export const RegisterProvince = ({ closeForm }) => {
   const queryClient = useQueryClient()
   const { data: departments, isLoading, isError } = useQuery('department', () => fetchDataApi('/department'))
 
-  const mutation = useMutation((newProvince) => createDataApi('/provinces', newProvince), {
+  const mutation = useMutation((newProvince) => createProvince(newProvince), {
     onSuccess: () => {
       setProvinceName('')
       setCodeDepartment(null)

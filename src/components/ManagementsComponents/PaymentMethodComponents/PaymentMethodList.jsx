@@ -3,8 +3,8 @@ import { DeleteOutlined } from '@ant-design/icons'
 import { useMutation } from 'react-query'
 import { useState } from 'react'
 import usePagedQuery from '../../../hook/usePagedQuery'
-import { deleteDataApi } from '../../../hook/useService'
 import { openNotification } from '../../../utils/notifications'
+import { deletePaymentMethod } from '../../../service/paymentMethod'
 
 export const PaymentMethodList = () => {
   const [pagination, setPagination] = useState({
@@ -17,7 +17,7 @@ export const PaymentMethodList = () => {
   const queryInfo = usePagedQuery('payment-method', '/payment-method/list-payment-method', pagination)
   const { data, isLoading, isError } = queryInfo
 
-  const deleteMutation = useMutation(deleteDataApi)
+  const deleteMutation = useMutation(deletePaymentMethod)
 
   const handleTableChange = (pagination, sorter) => {
     const { field, order } = sorter
@@ -31,7 +31,7 @@ export const PaymentMethodList = () => {
   }
 
   const handleDelete = (id) => {
-    deleteMutation.mutate({ baseUrl: '/payment-method', id }, {
+    deleteMutation.mutate(id, {
       onSuccess: () => {
         openNotification('success', 'Metodo de pago eliminado con éxito!')
         queryInfo.refetch()

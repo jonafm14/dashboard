@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { Input, notification } from 'antd'
-import { createDataApi } from '../../../hook/useService'
 import ButtonRegister from '../../ButtonRegister'
+import { createSaleChannel } from '../../../service/salesChannel'
 
 export const RegisterSaleChannel = ({ closeForm }) => {
   const [saleChannelName, setSaleChannelName] = useState('')
@@ -16,7 +16,7 @@ export const RegisterSaleChannel = ({ closeForm }) => {
     })
   }
 
-  const mutation = useMutation((newColor) => createDataApi('/sale-channel', newColor), {
+  const mutation = useMutation((newSaleChannel) => createSaleChannel(newSaleChannel), {
     onSuccess: () => {
       setSaleChannelName('')
       openNotification('success', 'Canal de venta creado con éxito!')
@@ -30,7 +30,7 @@ export const RegisterSaleChannel = ({ closeForm }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    mutation.mutate({ name: saleChannelName })
+    mutation.mutate(saleChannelName)
   }
 
   return (

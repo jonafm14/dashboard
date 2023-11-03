@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useMutation } from 'react-query'
 import usePagedQuery from '../../../hook/usePagedQuery'
 import { openNotification } from '../../../utils/notifications'
-import { deleteDataApi } from '../../../hook/useService'
+import { deleteProvince } from '../../../service/province'
 
 export const ProvinceList = () => {
   const [pagination, setPagination] = useState({
@@ -18,7 +18,7 @@ export const ProvinceList = () => {
   const queryInfo = usePagedQuery('province', '/province/listprovince', pagination)
 
   const { data, isLoading, isError } = queryInfo
-  const deleteMutation = useMutation(deleteDataApi)
+  const deleteMutation = useMutation(deleteProvince)
 
   const handleTableChange = (pagination, filters, sorter) => {
     const { field, order } = sorter
@@ -32,7 +32,7 @@ export const ProvinceList = () => {
   }
 
   const handleDelete = (id) => {
-    deleteMutation.mutate({ baseUrl: '/province', id }, {
+    deleteMutation.mutate(id, {
       onSuccess: () => {
         openNotification('success', 'Provincia eliminada con éxito!')
         queryInfo.refetch()
@@ -51,7 +51,7 @@ export const ProvinceList = () => {
       width: '50px'
     },
     {
-      title: 'Nombre',
+      title: 'Provincia',
       dataIndex: 'name',
       key: 'name'
     },

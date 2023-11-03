@@ -27,29 +27,36 @@ export const MainLayout = (props) => {
       </Link>
     ),
     getItem(
-      'Localidades',
+      'Registro de clientes',
       '2',
+      <Link to="/clients">
+        <AuditOutlined />
+      </Link>
+    ),
+    getItem(
+      'Localidades',
+      '3',
       <Link to="/localities">
         <BankOutlined />
       </Link>
     ),
     getItem(
       'Modulos',
-      '6',
+      '4',
       <Link to="/modules">
         <PartitionOutlined />
       </Link>
     ),
     getItem(
       'Pagos',
-      '7',
+      '5',
       <Link to="/payments">
         <DollarOutlined />
       </Link>
     ),
     getItem(
       'Gestión',
-      '8',
+      '6',
       <Link to="/managements">
         <FileTextOutlined />
       </Link>

@@ -1,15 +1,15 @@
 import { useMutation, useQueryClient } from 'react-query'
 import { useState } from 'react'
 import { openNotification } from '../../../utils/notifications'
-import { createDataApi } from '../../../hook/useService'
 import ButtonRegister from '../../ButtonRegister'
 import { Input } from 'antd'
+import { createDepartment } from '../../../service/department'
 
 export const RegisterDepartment = ({ closeForm }) => {
   const [departmentName, setDepartmentName] = useState('')
   const queryClient = useQueryClient()
 
-  const mutation = useMutation((newSize) => createDataApi('/department', newSize), {
+  const mutation = useMutation((newDepartment) => createDepartment('/department', newDepartment), {
     onSuccess: () => {
       setDepartmentName('')
       openNotification('success', 'Departamento creado con éxito!')
@@ -23,7 +23,7 @@ export const RegisterDepartment = ({ closeForm }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    mutation.mutate({ name: departmentName })
+    mutation.mutate(departmentName)
   }
 
   return (

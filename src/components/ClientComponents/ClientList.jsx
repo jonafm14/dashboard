@@ -6,7 +6,7 @@ import usePagedQuery from '../../hook/usePagedQuery'
 import { updateDataApi } from '../../hook/useService'
 import { Option } from 'antd/es/mentions'
 
-export const UserList = () => {
+export const ClientList = () => {
   const [pagination, setPagination] = useState({
     current: 1,
     pageSize: 5,
@@ -15,12 +15,8 @@ export const UserList = () => {
     sortOrder: null
   })
   const [sizeWindow, setSizeWindow] = useState(window.innerWidth > 768)
-  const [selectedUserType, setSelectedUserType] = useState({})
-  const [selectedGender, setSelectedGender] = useState({})
 
-  const queryInfo = usePagedQuery('user', '/user', pagination)
-  const queryInfoRole = usePagedQuery('user-type', '/user-type/list', pagination)
-  const { data: userType = [] } = queryInfoRole
+  const queryInfo = usePagedQuery('client', '/client', pagination)
 
   const { data, isLoading, isError } = queryInfo
 
@@ -38,22 +34,23 @@ export const UserList = () => {
   const [editingKey, setEditingKey] = useState('')
   const [editedData, setEditedData] = useState({})
 
-  const isEditing = (record) => record.user === editingKey
+  const isEditing = (record) => record.client === editingKey
 
   const edit = (record) => {
-    setEditingKey(record.user)
+    setEditingKey(record.client)
     setEditedData({ ...record })
   }
 
   const save = async (record) => {
+    console.log(record)
     try {
-      await updateDataApi('/user', record.user.toLowerCase(), editedData)
+      await updateDataApi('/client', 'jona', editedData)
       setEditingKey('')
       openNotification('success', 'Usuario actualizado con éxito')
       queryInfo.refetch()
     } catch (error) {
       openNotification('error', 'Hubo un error al actualizar el usuario')
-      console.error('Failed to update user:', error)
+      console.error('Failed to update client:', error)
     }
   }
 
@@ -66,20 +63,17 @@ export const UserList = () => {
     window.innerWidth > 1000 ? setSizeWindow(true) : setSizeWindow(false)
   }, [])
 
-  const usersColumns = [
+  const clientsColumns = [
     {
       title: 'DNI',
       dataIndex: 'dni',
+      key: 'dni',
       width: '50px'
-    },
-    {
-      title: 'Usuario',
-      dataIndex: 'user',
-      key: 'user'
     },
     {
       title: 'Nombre',
       dataIndex: 'name',
+      key: 'name',
       onCell: (record) => ({
         onClick: () => {
           if (isEditing(record)) {
@@ -104,6 +98,7 @@ export const UserList = () => {
     {
       title: 'Apellido',
       dataIndex: 'surname',
+      key: 'surname',
       onCell: (record) => ({
         onClick: () => {
           if (isEditing(record)) {
@@ -144,6 +139,56 @@ export const UserList = () => {
             <Input
               value={editedData.email}
               onChange={(e) => setEditedData({ ...editedData, email: e.target.value })}
+            />
+          )
+        }
+        return text
+      }
+    },
+    {
+      title: 'RUC',
+      dataIndex: 'ruc',
+      key: 'ruc',
+      onCell: (record) => ({
+        onClick: () => {
+          if (isEditing(record)) {
+            // En modo de edición,
+          } else {
+            edit(record)
+          }
+        }
+      }),
+      render: (text, record) => {
+        if (isEditing(record)) {
+          return (
+            <Input
+              value={editedData.ruc}
+              onChange={(e) => setEditedData({ ...editedData, ruc: e.target.value })}
+            />
+          )
+        }
+        return text
+      }
+    },
+    {
+      title: 'Negocio',
+      dataIndex: 'business',
+      key: 'business',
+      onCell: (record) => ({
+        onClick: () => {
+          if (isEditing(record)) {
+            // En modo de edición,
+          } else {
+            edit(record)
+          }
+        }
+      }),
+      render: (text, record) => {
+        if (isEditing(record)) {
+          return (
+            <Input
+              value={editedData.business}
+              onChange={(e) => setEditedData({ ...editedData, business: e.target.value })}
             />
           )
         }
@@ -200,56 +245,6 @@ export const UserList = () => {
               value={editedData.mobile}
               onChange={(e) => setEditedData({ ...editedData, mobile: e.target.value })}
             />
-          )
-        }
-        return text
-      }
-    },
-    {
-      title: 'Género',
-      dataIndex: 'gender',
-      key: 'gender',
-      render: (text, record) => {
-        if (isEditing(record)) {
-          return (
-            <Select
-              style={{ width: 100 }}
-              value={selectedGender[record.user] || text}
-              onChange={(value) => {
-                setSelectedGender({ ...selectedGender, [record.user]: value })
-                setEditedData({ ...editedData, gender: value })
-              }}
-            >
-              <Option value="masculino">Masculino</Option>
-              <Option value="femenino">Femenino</Option>
-              <Option value="otro">Otro</Option>
-            </Select>
-          )
-        }
-        return text
-      }
-    },
-    {
-      title: 'Rol del usuario',
-      dataIndex: 'userType',
-      key: 'userType',
-      render: (text, record) => {
-        if (isEditing(record)) {
-          return (
-            <Select
-              style={{ width: 150 }}
-              value={selectedUserType[record.user] || text}
-              onChange={(value) => {
-                setSelectedUserType({ ...selectedUserType, [record.user]: value })
-                setEditedData({ ...editedData, userType: value })
-              }}
-            >
-              {userType.map((type) => (
-                <Option key={type.userType} value={type.userType}>
-                  {type.userType}
-                </Option>
-              ))}
-            </Select>
           )
         }
         return text
@@ -328,12 +323,12 @@ export const UserList = () => {
 
   return (
     <div>
-      {isLoading && <div>Cargando usuarios...</div>}
-      {isError && <Alert message="Error cargando usuarios" type="error" />}
+      {isLoading && <div>Cargando clientes...</div>}
+      {isError && <Alert message="Error cargando clientes" type="error" />}
       {data && (
         <Table
           className="pt-5"
-          columns={usersColumns}
+          columns={clientsColumns}
           dataSource={data.content}
           pagination={{
             current: pagination.current,

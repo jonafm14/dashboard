@@ -3,8 +3,8 @@ import { DeleteOutlined } from '@ant-design/icons'
 import { useState } from 'react'
 import { useMutation } from 'react-query'
 import usePagedQuery from '../../../hook/usePagedQuery'
-import { deleteDataApi } from '../../../hook/useService'
 import { openNotification } from '../../../utils/notifications'
+import { deleteDepartment } from '../../../service/department'
 
 export const DepartmentList = () => {
   const [pagination, setPagination] = useState({
@@ -18,7 +18,7 @@ export const DepartmentList = () => {
   const queryInfo = usePagedQuery('department', '/department', pagination)
 
   const { data, isLoading, isError } = queryInfo
-  const deleteMutation = useMutation(deleteDataApi)
+  const deleteMutation = useMutation(deleteDepartment)
 
   const handleTableChange = (pagination, filters, sorter) => {
     const { field, order } = sorter

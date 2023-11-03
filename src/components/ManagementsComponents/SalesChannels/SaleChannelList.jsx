@@ -3,8 +3,8 @@ import { DeleteOutlined } from '@ant-design/icons'
 import { useMutation } from 'react-query'
 import { useState } from 'react'
 import usePagedQuery from '../../../hook/usePagedQuery'
-import { deleteDataApi } from '../../../hook/useService'
 import { openNotification } from '../../../utils/notifications'
+import { deleteSaleChannel } from '../../../service/salesChannel'
 
 export const SaleChannelList = () => {
   const [pagination, setPagination] = useState({
@@ -17,7 +17,7 @@ export const SaleChannelList = () => {
   const queryInfo = usePagedQuery('sale-channel', '/sale-channel/list-sale-channel', pagination)
   const { data, isLoading, isError } = queryInfo
 
-  const deleteMutation = useMutation(deleteDataApi)
+  const deleteMutation = useMutation(deleteSaleChannel)
 
   const handleTableChange = (pagination, sorter) => {
     const { field, order } = sorter
@@ -31,7 +31,7 @@ export const SaleChannelList = () => {
   }
 
   const handleDelete = (id) => {
-    deleteMutation.mutate({ baseUrl: '/sale-channel', id }, {
+    deleteMutation.mutate(id, {
       onSuccess: () => {
         openNotification('success', 'Canal de venta eliminado con éxito!')
         queryInfo.refetch()

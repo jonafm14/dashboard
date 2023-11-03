@@ -3,10 +3,10 @@ import { DeleteOutlined } from '@ant-design/icons'
 import { useMutation } from 'react-query'
 import usePagedQuery from '../../../hook/usePagedQuery'
 import { useState } from 'react'
-import { deleteDataApi } from '../../../hook/useService'
 import { openNotification } from '../../../utils/notifications'
+import { deleteUserType } from '../../../service/userType'
 
-export const UserRoleList = () => {
+export const UserTypeList = () => {
   const [pagination, setPagination] = useState({
     current: 1,
     pageSize: 5,
@@ -14,10 +14,10 @@ export const UserRoleList = () => {
     sortField: null,
     sortOrder: null
   })
-  const queryInfo = usePagedQuery('user-role', '/user-role/list', pagination)
+  const queryInfo = usePagedQuery('user-type', '/user-type/list', pagination)
   const { data, isLoading, isError } = queryInfo
 
-  const deleteMutation = useMutation(deleteDataApi)
+  const deleteMutation = useMutation(deleteUserType)
 
   const handleTableChange = (pagination, sorter) => {
     const { field, order } = sorter
@@ -31,19 +31,19 @@ export const UserRoleList = () => {
   }
 
   const handleDelete = (id) => {
-    deleteMutation.mutate({ baseUrl: '/user-role', id }, {
+    deleteMutation.mutate(id, {
       onSuccess: () => {
-        openNotification('success', 'Rol eliminado con éxito!')
+        openNotification('success', 'Tipo de usuario eliminado con éxito!')
         queryInfo.refetch()
       },
       onError: (error) => {
-        openNotification('error', 'Hubo un error al eliminar el rol.')
-        console.error('Failed to delete user role:', error)
+        openNotification('error', 'Hubo un error al eliminar el tipo de usuario.')
+        console.error('Failed to delete user type:', error)
       }
     })
   }
 
-  const rolesColumns = [
+  const typesColumns = [
     {
       title: 'Code',
       dataIndex: 'code',
@@ -51,8 +51,11 @@ export const UserRoleList = () => {
     },
     {
       title: 'Nombre',
-      dataIndex: 'name',
-      key: 'name'
+      dataIndex: 'userType',
+      key: 'userType',
+      render: (text, record) => (
+        `${record.userType.toUpperCase()}`
+      )
     },
     {
       title: 'Eliminar',
@@ -72,12 +75,12 @@ export const UserRoleList = () => {
 
   return (
     <div>
-      {isLoading && <div>Cargando roles...</div>}
-      {isError && <Alert message="Error cargando roles" type="error" />}
+      {isLoading && <div>Cargando tipos de usuarios...</div>}
+      {isError && <Alert message="Error cargando tipos de usuarios" type="error" />}
       {data &&
         <Table
         className="pt-5"
-        columns={rolesColumns}
+        columns={typesColumns}
         dataSource={data}
         pagination={{
           current: pagination.current,

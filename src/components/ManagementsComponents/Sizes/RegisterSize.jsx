@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { openNotification } from '../../../utils/notifications'
-import { createDataApi, fetchDataApi } from '../../../hook/useService'
+import { fetchDataApi } from '../../../hook/useService'
 import ButtonRegister from '../../ButtonRegister'
 import { Input, Select } from 'antd'
 import { Option } from 'antd/es/mentions'
+import { createSize } from '../../../service/size'
 
 export const RegisterSize = ({ closeForm }) => {
   const [sizeName, setSizeName] = useState('')
@@ -12,7 +13,7 @@ export const RegisterSize = ({ closeForm }) => {
   const queryClient = useQueryClient()
   const { data: sizeTypes, isLoading, isError } = useQuery('size-type', () => fetchDataApi('/size-type/list-size-type'))
 
-  const mutation = useMutation((newSize) => createDataApi('/size', newSize), {
+  const mutation = useMutation((newSize) => createSize(newSize), {
     onSuccess: () => {
       setSizeName('')
       setCodeSizeType(null)
